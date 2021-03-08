@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1177</width>
+    <height>803</height>
+   </rect>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::NoFocus</enum>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(63,63,70);
+color: rgb(255, 255, 255);</string>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <property name="dockNestingEnabled">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="2">
+     <widget class="QPushButton" name="textClear">
+      <property name="minimumSize">
+       <size>
+        <width>300</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>300</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+      </property>
+      <property name="text">
+       <string>清空</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTextEdit" name="textEdit_Msg">
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>636</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Microsoft New Tai Lue</family>
+          <pointsize>10</pointsize>
+          <kerning>true</kerning>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(30,30,30);
+color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="openPictureFile">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+        </property>
+        <property name="text">
+         <string>选择</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="clearScatter">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+        </property>
+        <property name="text">
+         <string>清空</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="FrontView">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+        </property>
+        <property name="text">
+         <string>正视</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="startProcess">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+        </property>
+        <property name="text">
+         <string>开始</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="1">
+     <widget class="QWidget" name="showScatter" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>581</width>
+        <height>581</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(30, 30, 30);</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QWidget" name="widget_2" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>231</width>
+        <height>701</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(30,30,30);
+border-top-color: rgb(255, 255, 255);</string>
+      </property>
+      <widget class="QPushButton" name="ModeStart">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>150</y>
+         <width>211</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+       </property>
+       <property name="text">
+        <string>开始</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="StartListen">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>100</width>
+         <height>50</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+       </property>
+       <property name="text">
+        <string>连接PLC</string>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>211</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="1">
+         <widget class="QRadioButton" name="manualMode">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>手动模式</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QRadioButton" name="autoMode">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>自控模式</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QPushButton" name="EndListen">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>10</y>
+         <width>100</width>
+         <height>50</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+       </property>
+       <property name="text">
+        <string>断开PLC</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="ModeStop">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>202</y>
+         <width>211</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+       </property>
+       <property name="text">
+        <string>停止</string>
+       </property>
+      </widget>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>270</y>
+         <width>211</width>
+         <height>151</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>回原点</string>
+       </property>
+       <widget class="QWidget" name="verticalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>191</width>
+          <height>111</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="BacktoOrigin_1">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+             </property>
+             <property name="text">
+              <string>1号传感器</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="BacktoOrigin_2">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+             </property>
+             <property name="text">
+              <string>2号传感器</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="BacktoOrigin_3">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+             </property>
+             <property name="text">
+              <string>3号传感器</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="BacktoOrigin_4">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+             </property>
+             <property name="text">
+              <string>4号传感器</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="BacktoOrigin_all">
+           <property name="styleSheet">
+            <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+           </property>
+           <property name="text">
+            <string>全部回原点</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>440</y>
+         <width>211</width>
+         <height>151</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>回安全位置</string>
+       </property>
+       <widget class="QWidget" name="verticalLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>191</width>
+          <height>111</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="BacktoSafe_1">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+             </property>
+             <property name="text">
+              <string>1号传感器</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="BacktoSafe_2">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+             </property>
+             <property name="text">
+              <string>2号传感器</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="BacktoSafe_3">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+             </property>
+             <property name="text">
+              <string>3号传感器</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="BacktoSafe_4">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+             </property>
+             <property name="text">
+              <string>4号传感器</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="BacktoSafe_all">
+           <property name="styleSheet">
+            <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+           </property>
+           <property name="text">
+            <string>全部回安全位置</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>600</y>
+         <width>211</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>电机供电</string>
+       </property>
+       <widget class="QWidget" name="verticalLayoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>191</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QPushButton" name="motorsPowerOn">
+           <property name="styleSheet">
+            <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+           </property>
+           <property name="text">
+            <string>电机上电</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="motorsPowerOff">
+           <property name="styleSheet">
+            <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+           </property>
+           <property name="text">
+            <string>电机断电</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QComboBox" name="readLimit">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+selection-color: rgb(0, 170, 0);
+</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>限界1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>限界2</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="isSinglePointShow">
+        <property name="text">
+         <string>单点显示</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1177</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>设置</string>
+    </property>
+    <addaction name="actionSetting"/>
+    <addaction name="actionCameraSetting"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="actionCameraParm"/>
+    <addaction name="actionSavePointCloud"/>
+    <addaction name="actionReadPointCloud"/>
+   </widget>
+   <addaction name="menu_2"/>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionSetting">
+   <property name="text">
+    <string>Setting</string>
+   </property>
+  </action>
+  <action name="actionCameraSetting">
+   <property name="text">
+    <string>CameraSetting</string>
+   </property>
+  </action>
+  <action name="actionCameraParm">
+   <property name="text">
+    <string>ReadSensors</string>
+   </property>
+  </action>
+  <action name="actionSavePointCloud">
+   <property name="text">
+    <string>SavePointCloud</string>
+   </property>
+  </action>
+  <action name="actionReadPointCloud">
+   <property name="text">
+    <string>ReadPointCloud</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

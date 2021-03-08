@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CammerWidget</class>
+ <widget class="QWidget" name="CammerWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>320</width>
+    <height>390</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="label_Pixmap">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>301</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>300</y>
+     <width>322</width>
+     <height>87</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="Open">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+        </property>
+        <property name="text">
+         <string>打开</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Close">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+        </property>
+        <property name="text">
+         <string>关闭</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Start">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+        </property>
+        <property name="text">
+         <string>播放</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Stop">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(152, 152, 152)}
+
+QPushButton:hover{background-color: rgb(53, 161, 79);}
+
+QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
+        </property>
+        <property name="text">
+         <string>停止</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>曝光</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDoubleSpinBox" name="ExposureShow"/>
+      </item>
+      <item>
+       <widget class="QSlider" name="Exposure">
+        <property name="minimum">
+         <number>10</number>
+        </property>
+        <property name="maximum">
+         <number>1000000</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>增益</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDoubleSpinBox" name="GainShow"/>
+      </item>
+      <item>
+       <widget class="QSlider" name="Gain">
+        <property name="maximum">
+         <number>18</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

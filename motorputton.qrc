@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/down_check.png</file>
+        <file>resource/down_uncheck.png</file>
+        <file>resource/heisebeijing.jpg</file>
+        <file>resource/hightspeed.jpg</file>
+        <file>resource/left_check.png</file>
+        <file>resource/left_uncheck.png</file>
+        <file>resource/lvsebeijing.jpg</file>
+        <file>resource/right_check.png</file>
+        <file>resource/right_uncheck.png</file>
+        <file>resource/up_check.png</file>
+        <file>resource/up_uncheck.png</file>
+    </qresource>
+</RCC>

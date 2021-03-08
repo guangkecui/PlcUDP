@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/down_check.png</file>
+        <file>resource/down_uncheck.png</file>
+        <file>resource/left_check.png</file>
+        <file>resource/left_uncheck.png</file>
+        <file>resource/right_check.png</file>
+        <file>resource/right_uncheck.png</file>
+        <file>resource/up_check.png</file>
+        <file>resource/up_uncheck.png</file>
+        <file>resource/down_honver.png</file>
+        <file>resource/left_honver.png</file>
+        <file>resource/right_honver.png</file>
+        <file>resource/up_honver.png</file>
+        <file>resource/hightspeed.png</file>
+    </qresource>
+</RCC>
