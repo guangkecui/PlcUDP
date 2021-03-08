@@ -35,15 +35,16 @@ public:
     //*非实时处理-寻找文件夹下所有的图片*/
     void findPictures(const QString& _filePath);
     //*单目模式下计算坐标*/
-    void processSingleMonocular(Mat& InputSrc, double _distance, bool isSinglePoint);
+    void processSingleMonocular(Mat& InputSrc, double _distance, bool isSinglePoint, int sensorNum);
     //*双目模式下计算坐标*/
     void processMultipleMonocular();
     //*根据图片名称设置相机内参，即根据图片名称判断是哪个相机拍的*/
-    double_t setMatrixFromImagename(QString& imageFile);
+    double_t setMatrixFromImagename(QString& imageFile, int &sensorNum);
 signals:
     void sendPointToMainwindow(QVector<double> x,QVector<double>y,QVector<double>z );
     void sendMessageToMainwindow(QString msg);
 public slots:
+    void receiveThresholdFromMaindow(int threshold_val);
     void receiveIsSinglePointShowFromMaindow(bool isSingleShow);
     void TestSlot();
     //*接收从manager（指令管理器）发来的图片路径，根据图片路径对图片进行处理*/
@@ -60,6 +61,7 @@ private:
     QString workingFilePath;//图片的路径
     QFileInfoList fileList;//图片集合
     bool isSinglePointShow;//是否单点显示，整个激光条中取y值最大的点
+    int m_threshold;
 };
 
 #endif // IMAGEPROCE_H

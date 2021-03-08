@@ -20,8 +20,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ImageProce_t {
-    QByteArrayData data[15];
-    char stringdata0[220];
+    QByteArrayData data[17];
+    char stringdata0[262];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,17 +39,20 @@ QT_MOC_LITERAL(5, 52, 1), // "y"
 QT_MOC_LITERAL(6, 54, 1), // "z"
 QT_MOC_LITERAL(7, 56, 23), // "sendMessageToMainwindow"
 QT_MOC_LITERAL(8, 80, 3), // "msg"
-QT_MOC_LITERAL(9, 84, 35), // "receiveIsSinglePointShowFromM..."
-QT_MOC_LITERAL(10, 120, 12), // "isSingleShow"
-QT_MOC_LITERAL(11, 133, 8), // "TestSlot"
-QT_MOC_LITERAL(12, 142, 40), // "receiveFilepathFromManagerToI..."
-QT_MOC_LITERAL(13, 183, 18), // "ImagePath_LightOFF"
-QT_MOC_LITERAL(14, 202, 17) // "ImagePath_LightON"
+QT_MOC_LITERAL(9, 84, 27), // "receiveThresholdFromMaindow"
+QT_MOC_LITERAL(10, 112, 13), // "threshold_val"
+QT_MOC_LITERAL(11, 126, 35), // "receiveIsSinglePointShowFromM..."
+QT_MOC_LITERAL(12, 162, 12), // "isSingleShow"
+QT_MOC_LITERAL(13, 175, 8), // "TestSlot"
+QT_MOC_LITERAL(14, 184, 40), // "receiveFilepathFromManagerToI..."
+QT_MOC_LITERAL(15, 225, 18), // "ImagePath_LightOFF"
+QT_MOC_LITERAL(16, 244, 17) // "ImagePath_LightON"
 
     },
     "ImageProce\0sendPointToMainwindow\0\0"
     "QVector<double>\0x\0y\0z\0sendMessageToMainwindow\0"
-    "msg\0receiveIsSinglePointShowFromMaindow\0"
+    "msg\0receiveThresholdFromMaindow\0"
+    "threshold_val\0receiveIsSinglePointShowFromMaindow\0"
     "isSingleShow\0TestSlot\0"
     "receiveFilepathFromManagerToImageProcess\0"
     "ImagePath_LightOFF\0ImagePath_LightON"
@@ -62,7 +65,7 @@ static const uint qt_meta_data_ImageProce[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -70,22 +73,24 @@ static const uint qt_meta_data_ImageProce[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    3,   39,    2, 0x06 /* Public */,
-       7,    1,   46,    2, 0x06 /* Public */,
+       1,    3,   44,    2, 0x06 /* Public */,
+       7,    1,   51,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       9,    1,   49,    2, 0x0a /* Public */,
-      11,    0,   52,    2, 0x0a /* Public */,
-      12,    2,   53,    2, 0x0a /* Public */,
+       9,    1,   54,    2, 0x0a /* Public */,
+      11,    1,   57,    2, 0x0a /* Public */,
+      13,    0,   60,    2, 0x0a /* Public */,
+      14,    2,   61,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 3, 0x80000000 | 3,    4,    5,    6,
     QMetaType::Void, QMetaType::QString,    8,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Bool,   10,
+    QMetaType::Void, QMetaType::Int,   10,
+    QMetaType::Void, QMetaType::Bool,   12,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,   13,   14,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,   15,   16,
 
        0        // eod
 };
@@ -98,9 +103,10 @@ void ImageProce::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->sendPointToMainwindow((*reinterpret_cast< QVector<double>(*)>(_a[1])),(*reinterpret_cast< QVector<double>(*)>(_a[2])),(*reinterpret_cast< QVector<double>(*)>(_a[3]))); break;
         case 1: _t->sendMessageToMainwindow((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 2: _t->receiveIsSinglePointShowFromMaindow((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 3: _t->TestSlot(); break;
-        case 4: _t->receiveFilepathFromManagerToImageProcess((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 2: _t->receiveThresholdFromMaindow((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->receiveIsSinglePointShowFromMaindow((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 4: _t->TestSlot(); break;
+        case 5: _t->receiveFilepathFromManagerToImageProcess((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -161,13 +167,13 @@ int ImageProce::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }

@@ -25,6 +25,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
@@ -89,6 +90,8 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QComboBox *readLimit;
     QCheckBox *isSinglePointShow;
+    QLabel *label;
+    QSpinBox *threshold;
     QMenuBar *menuBar;
     QMenu *menu;
     QMenu *menu_2;
@@ -463,6 +466,18 @@ public:
 
         horizontalLayout_3->addWidget(isSinglePointShow);
 
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+
+        horizontalLayout_3->addWidget(label);
+
+        threshold = new QSpinBox(centralWidget);
+        threshold->setObjectName(QStringLiteral("threshold"));
+        threshold->setMaximum(255);
+        threshold->setValue(220);
+
+        horizontalLayout_3->addWidget(threshold);
+
 
         gridLayout->addLayout(horizontalLayout_3, 1, 0, 1, 1);
 
@@ -537,6 +552,7 @@ public:
          << QApplication::translate("MainWindow", "\351\231\220\347\225\2142", Q_NULLPTR)
         );
         isSinglePointShow->setText(QApplication::translate("MainWindow", "\345\215\225\347\202\271\346\230\276\347\244\272", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "\351\230\210\345\200\274", Q_NULLPTR));
         menu->setTitle(QApplication::translate("MainWindow", "\350\256\276\347\275\256", Q_NULLPTR));
         menu_2->setTitle(QApplication::translate("MainWindow", "\346\226\207\344\273\266", Q_NULLPTR));
     } // retranslateUi

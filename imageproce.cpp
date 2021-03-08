@@ -11,6 +11,7 @@ using namespace cv;
 ImageProce::ImageProce(QString InputFilePath, sensorunit *sensors, QObject *parent):
     workingFilePath(InputFilePath),
     isSinglePointShow(false),
+    m_threshold(220),
     QObject(parent)
 {
     qRegisterMetaType<QVector<double>>("QVector<double>");
@@ -412,7 +413,7 @@ void ImageProce::findPictures(const QString &_filePath)
   输出参数：
   函数功能：单目莫模式下处理单张图片
 **********************************************/
-void ImageProce::processSingleMonocular(Mat &InputSrc,double _distance,bool isSinglePoint)
+void ImageProce::processSingleMonocular(Mat &InputSrc,double _distance,bool isSinglePoint,int sensorNum)
 {
     vector<Mat> ImageCenters;//图像的中心点坐标
     findLightbarCenter(InputSrc,ImageCenters);//寻找中心点坐标
@@ -491,23 +492,25 @@ void ImageProce::processMultipleMonocular()
         return;
     for(int i=0;i<fileList.size();++i){
         QString imageName = fileList[i].fileName();
-        double distance = setMatrixFromImagename(imageName);
+        int sensorNum;
+        double distance = setMatrixFromImagename(imageName,sensorNum);
         Mat image = imread(fileList[i].filePath().toStdString(),IMREAD_GRAYSCALE);
-        processSingleMonocular(image,distance,isSinglePointShow);
+        processSingleMonocular(image,distance,isSinglePointShow,sensorNum);
     }
 }
 
 /**********************************************
   函数名称：setMatrixFromImagename
-  输入参数：imageName：图片名称
+  输入参数：imageName：图片名称;sensorNum:传感器标号
   输出参数：传感器距离原点的距离
   函数功能：根据图片名称设置相机内参/畸变参数/相机到传感器RT/传感器到轨道RT
 **********************************************/
-double_t ImageProce::setMatrixFromImagename(QString &imageFile)
+double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
 {
     QString imageName = imageFile.mid(imageFile.lastIndexOf("/")+1,imageFile.lastIndexOf("."));
         switch (imageName[0].toLatin1()-'0') {
         case 1:
+            sensorNum = 1;
             workingRTtoTrack = m_SensorUnit->Sensor_1->getRTOfTrack().clone();
             workingLinearMatrix = m_SensorUnit->Sensor_1->getLinearMatrix().clone();
             if((imageName[2].toLatin1()-'0')==1){
@@ -531,6 +534,7 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile)
             }
             break;
         case 2:
+            sensorNum = 2;
             workingRTtoTrack = m_SensorUnit->Sensor_2->getRTOfTrack().clone();
             workingLinearMatrix = m_SensorUnit->Sensor_2->getLinearMatrix().clone();
             if((imageName[2].toLatin1()-'0')==1){
@@ -553,6 +557,7 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile)
             }
             break;
         case 3:
+            sensorNum = 3;
             workingRTtoTrack = m_SensorUnit->Sensor_3->getRTOfTrack().clone();
             workingLinearMatrix = m_SensorUnit->Sensor_3->getLinearMatrix().clone();
             if((imageName[2].toLatin1()-'0')==1){
@@ -575,6 +580,7 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile)
             }
             break;
         case 4:
+            sensorNum = 4;
             workingRTtoTrack = m_SensorUnit->Sensor_4->getRTOfTrack().clone();
             workingLinearMatrix = m_SensorUnit->Sensor_4->getLinearMatrix().clone();
             if((imageName[2].toLatin1()-'0')==1){
@@ -605,9 +611,21 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile)
         return distance_str.toDouble();
 }
 
+/**********************************************
+  函数名称：receiveThresholdFromMaindow
+  输入参数：threshold_val:二值化阈值
+  输出参数：
+  函数功能：更改图片的灰度阈值
+**********************************************/
+void ImageProce::receiveThresholdFromMaindow(int threshold_val)
+{
+    m_threshold = threshold_val;
+}
+
 void ImageProce::receiveIsSinglePointShowFromMaindow(bool isSingleShow)
 {
      isSinglePointShow=isSingleShow;
+
 }
 
 
@@ -753,8 +771,9 @@ void ImageProce::TestSlot()
 **********************************************/
 void ImageProce::receiveFilepathFromManagerToImageProcess(QString ImagePath_LightOFF, QString ImagePath_LightON)
 {
-    double distance = setMatrixFromImagename(ImagePath_LightON);//根据图片名读取相机内外参
+    int sensorNum;//用于标识传感器
+    double distance = setMatrixFromImagename(ImagePath_LightON,sensorNum);//根据图片名读取相机内外参
     Mat src = imread(ImagePath_LightON.toStdString(),0);
-    processSingleMonocular(src,distance,isSinglePointShow);
+    processSingleMonocular(src,distance,isSinglePointShow,sensorNum);
 
 }

@@ -87,6 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ImageProcessWorker->setSensorUnit(m_SensorUnit);
     connect(m_manager,SIGNAL(singleImageProcess(QString,QString)),ImageProcessWorker,SLOT(receiveFilepathFromManagerToImageProcess(QString,QString)));
     connect(this,SIGNAL(sendIsSinglePointShow(bool)),ImageProcessWorker,SLOT(receiveIsSinglePointShowFromMaindow(bool)));
+    connect(this,SIGNAL(sendThresholdToImageProcess(int)),ImageProcessWorker,SLOT(receiveThresholdFromMaindow(int)));
     /*************************************************************************/
 
     connect(ParSet,SIGNAL(updatePar()),this,SLOT(UpdateParameters()));
@@ -1121,4 +1122,9 @@ void MainWindow::on_isSinglePointShow_stateChanged(int arg1)
     default:
         break;
     }
+}
+
+void MainWindow::on_threshold_valueChanged(int arg1)
+{
+    emit sendThresholdToImageProcess(arg1);
 }
