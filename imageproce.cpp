@@ -429,8 +429,7 @@ void ImageProce::processSingleMonocular(Mat &InputSrc,double _distance,bool isSi
     Mat PointInSensor(4,1,CV_64FC1);//初始化传感器坐标系下点的坐标
     Mat PointInTrack(4,1,CV_64FC1);//初始化轨道坐标系下点的坐标
     QVector<double> xVec;QVector<double> yVec;QVector<double> zVec;
-    QVector3D maxYpoint;//y值绝对值最大的点
-    maxYpoint.setY(0);
+
     for(int i=0;i<ImageCenters_undist.size();++i){
         Mat A_inv = _MatrixInv*ImageCenters_undist[i];
         double a = A_inv.at<double>(0,0);
@@ -460,23 +459,8 @@ void ImageProce::processSingleMonocular(Mat &InputSrc,double _distance,bool isSi
 
     }
     if(isSinglePoint){
-        for(int i=0;i<yVec.size();++i){
-            double srcPointy = yVec[i];
-            if(srcPointy<0){
-                srcPointy = -srcPointy;
-            }
-            if(srcPointy>maxYpoint.y()){
-                maxYpoint.setX(xVec[i]);
-                maxYpoint.setY(yVec[i]);
-                maxYpoint.setZ(zVec[i]);
-            }
-        }
-        xVec.clear();yVec.clear();zVec.clear();
-        xVec.push_back(maxYpoint.x());
-        yVec.push_back(maxYpoint.y());
-        zVec.push_back(maxYpoint.z());
+        singlePointShow(xVec,yVec,zVec,sensorNum);
     }
-
     emit sendPointToMainwindow(xVec,yVec,zVec);
 }
 
@@ -609,6 +593,75 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
         int32_t end = imageName.lastIndexOf(".");
         QString distance_str = imageName.mid(start,end-start);
         return distance_str.toDouble();
+}
+
+/**********************************************
+  函数名称：singlePointShow
+  输入参数：xVec,yVec,zVec,采集到的三维点的集合;sensor:传感器标号
+  输出参数：无
+  函数功能：将集合中x、y或z绝对值最大（最小）的点找出来
+**********************************************/
+void ImageProce::singlePointShow(QVector<double> &xVec, QVector<double> &yVec, QVector<double> &zVec,int sensor)
+{
+    switch (sensor) {
+    case 1:{
+        QVector3D maxZpoint(0.0,0.0,0.0);//z值绝对值最大的点
+        for(int i=0;i<zVec.size();++i){
+            double srcPointz = zVec[i];
+            if(srcPointz<0){
+                srcPointz = -srcPointz;
+            }
+            if(srcPointz>maxZpoint.z()){
+                maxZpoint.setX(xVec[i]);
+                maxZpoint.setY(yVec[i]);
+                maxZpoint.setZ(zVec[i]);
+            }
+        }
+        xVec.clear();yVec.clear();zVec.clear();
+        xVec.push_back(maxZpoint.x());
+        yVec.push_back(maxZpoint.y());
+        zVec.push_back(maxZpoint.z());}
+        break;
+    case 2:
+    case 4:{
+        QVector3D maxYpoint(0.0,0.0,0.0);//y值绝对值最大的点
+        for(int i=0;i<yVec.size();++i){
+            double srcPointy = yVec[i];
+            if(srcPointy<0){
+                srcPointy = -srcPointy;
+            }
+            if(srcPointy>maxYpoint.z()){
+                maxYpoint.setX(xVec[i]);
+                maxYpoint.setY(yVec[i]);
+                maxYpoint.setZ(zVec[i]);
+            }
+        }
+        xVec.clear();yVec.clear();zVec.clear();
+        xVec.push_back(maxYpoint.x());
+        yVec.push_back(maxYpoint.y());
+        zVec.push_back(maxYpoint.z());}
+        break;
+    case 3:{
+        QVector3D minZpoint(4800.0,4800.0,4800.0);//z值绝对值最小的点
+        for(int i=0;i<zVec.size();++i){
+            double srcPointz = zVec[i];
+            if(srcPointz<0){
+                srcPointz = -srcPointz;
+            }
+            if(srcPointz<minZpoint.z()){
+                minZpoint.setX(xVec[i]);
+                minZpoint.setY(yVec[i]);
+                minZpoint.setZ(zVec[i]);
+            }
+        }
+        xVec.clear();yVec.clear();zVec.clear();
+        xVec.push_back(minZpoint.x());
+        yVec.push_back(minZpoint.y());
+        zVec.push_back(minZpoint.z());}
+        break;
+    default:
+        break;
+    }
 }
 
 /**********************************************

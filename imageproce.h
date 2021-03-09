@@ -40,6 +40,8 @@ public:
     void processMultipleMonocular();
     //*根据图片名称设置相机内参，即根据图片名称判断是哪个相机拍的*/
     double_t setMatrixFromImagename(QString& imageFile, int &sensorNum);
+    //*单点显示程序*/
+    void singlePointShow(QVector<double>& xVec, QVector<double>& yVec, QVector<double>& zVec, int sensor);
 signals:
     void sendPointToMainwindow(QVector<double> x,QVector<double>y,QVector<double>z );
     void sendMessageToMainwindow(QString msg);
