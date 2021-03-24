@@ -42,9 +42,9 @@ void manualmodeDialog::on_motor1_up_clicked()
     //先把停止位置为0
     emit sendCommand(m_motors->MotorMoveUpStopZero(1),0,0,workingMode,1);
     //再把move位置1
-    double val = (double)ui->distance1_up->value();
+    double val = (double)ui->distance1_up->value()/0.75;
     emit sendCommand(m_motors->MotorMoveUp(1),
-                     (double)ui->distance1_up->value(),
+                     val,
                      ui->velocity1_up->value(),workingMode,1);
 }
 
@@ -54,7 +54,9 @@ void manualmodeDialog::on_motor1_down_clicked()
     //先把停止位置为0
     emit sendCommand(m_motors->MotorMoveDownStopZero(1),0,0,workingMode,1);
     //再把move位置1
-    emit sendCommand(m_motors->MotorMoveDown(1),(double)ui->distance1_down->value(),
+    double val = (double)ui->distance1_down->value()/0.75;
+    emit sendCommand(m_motors->MotorMoveDown(1),
+                     val,
                      ui->velocity1_down->value(),workingMode,1);
 }
 
@@ -63,7 +65,9 @@ void manualmodeDialog::on_motor2_up_clicked()
     //先把停止位置为0
     emit sendCommand(m_motors->MotorMoveUpStopZero(2),0,0,workingMode,2);
     //再把move位置1
-    emit sendCommand(m_motors->MotorMoveUp(2),(double)ui->distance2_up->value(),
+    double val = (double)ui->distance2_up->value()/0.75;
+    emit sendCommand(m_motors->MotorMoveUp(2),
+                     val,
                      ui->velocity2_up->value(),workingMode,2);
 }
 
@@ -72,7 +76,9 @@ void manualmodeDialog::on_motor2_down_clicked()
     //先把停止位置为0
     emit sendCommand(m_motors->MotorMoveDownStopZero(2),0,0,workingMode,2);
     //再把move位置1
-    emit sendCommand(m_motors->MotorMoveDown(2),(double)ui->distance2_down->value(),
+    double val = (double)ui->distance2_down->value()/0.75;
+    emit sendCommand(m_motors->MotorMoveDown(2),
+                     val,
                      ui->velocity2_down->value(),workingMode,2);}
 
 void manualmodeDialog::on_motor3_up_clicked()
@@ -80,7 +86,9 @@ void manualmodeDialog::on_motor3_up_clicked()
     //先把停止位置为0
     emit sendCommand(m_motors->MotorMoveUpStopZero(3),0,0,workingMode,3);
     //再把move位置1
-    emit sendCommand(m_motors->MotorMoveUp(3),(double)ui->distance3_up->value(),
+    double val = (double)ui->distance3_up->value()/0.75;
+    emit sendCommand(m_motors->MotorMoveUp(3),
+                     val,
                      ui->velocity3_up->value(),workingMode,3);
 }
 
@@ -89,7 +97,9 @@ void manualmodeDialog::on_motor3_down_clicked()
     //先把停止位置为0
     emit sendCommand(m_motors->MotorMoveDownStopZero(3),0,0,workingMode,3);
     //再把move位置1
-    emit sendCommand(m_motors->MotorMoveDown(3),(double)ui->distance3_down->value(),
+    double val = (double)ui->distance3_down->value()/0.75;
+    emit sendCommand(m_motors->MotorMoveDown(3),
+                     val,
                      ui->velocity3_down->value(),workingMode,3);
 }
 
@@ -98,7 +108,9 @@ void manualmodeDialog::on_motor4_up_clicked()
     //先把停止位置为0
     emit sendCommand(m_motors->MotorMoveUpStopZero(4),0,0,workingMode,4);
     //再把move位置1
-    emit sendCommand(m_motors->MotorMoveUp(4),(double)ui->distance4_up->value(),
+    double val = (double)ui->distance4_up->value()/0.75;
+    emit sendCommand(m_motors->MotorMoveUp(4),
+                     val,
                      ui->velocity4_up->value(),workingMode,4);
 }
 
@@ -107,7 +119,9 @@ void manualmodeDialog::on_motor4_down_clicked()
     //先把停止位置为0
     emit sendCommand(m_motors->MotorMoveDownStopZero(4),0,0,workingMode,4);
     //再把move位置1
-    emit sendCommand(m_motors->MotorMoveDown(4),(double)ui->distance4_down->value(),
+    double val = (double)ui->distance4_down->value()/0.75;
+    emit sendCommand(m_motors->MotorMoveDown(4),
+                     val,
                      ui->velocity4_down->value(),workingMode,4);
 }
 
@@ -233,7 +247,4 @@ void manualmodeDialog::on_startToPosition_4_clicked()
     emit sendMotorToPosition(4,position);
 }
 
-void manualmodeDialog::on_pushButton_2_clicked()
-{
-     emit sendCameraCmd(5);
-}
+

@@ -43,13 +43,15 @@ public:
     // get frame callback function
     void FrameCallback(const Dahua::GenICam::CFrame & frame);
     //获取图像
-    bool getImage(QString SavePath, bool horizontal =true, bool vertical=false);
+    bool getImage(QString SavePath, bool horizontal =false, bool vertical=false);
     //打开数字IO
     void openDigitalIO(void);
     //关闭数字IO
     void closeDigitalIO(void);
     //读取配置信息
     QVector<QString> loadCameraCfg(QString xmlFilename);
+    //设置IP
+    bool setIP(const char* s);
 
 private:
     ICameraPtr m_pCamera;							// 相机指针

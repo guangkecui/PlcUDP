@@ -197,7 +197,8 @@ QVector<QString> omron::oneCamera::loadCameraCfg(QString xmlFilename)
 {
     QVector<QString> resInf;//返回信息
     Dahua::Infra::TVector< Dahua::Infra::CString >   vErrorList;
-    if(m_pCamera->loadDeviceCfg(xmlFilename.toStdString().data(),vErrorList)!=0){
+    m_pCamera->loadDeviceCfg(xmlFilename.toStdString().data(),vErrorList);
+    if(vErrorList.size()!=0){
         resInf.push_back(QString("The following information camera configuration failed:"));
         for(int i=0;i<vErrorList.size();++i){
             QString errorInf(vErrorList[i].data());
@@ -209,6 +210,12 @@ QVector<QString> omron::oneCamera::loadCameraCfg(QString xmlFilename)
     }
     return resInf;
 
+}
+
+bool omron::oneCamera::setIP(const char *s)
+{
+    CStringNode ip(m_pCamera,"GevPersistentAddress");
+    return ip.setValue(CString(s));
 }
 
 

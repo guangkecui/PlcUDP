@@ -422,6 +422,7 @@ QString omron::Cameras::getImageOfCamera(omron::CAMERALABEL cameralabel, bool is
                 QString Imagename = CalculatePictureName(CAMERALABEL::Camera2_1);
                 if(Camera2_2!=nullptr)
                     Camera2_2->closeDigitalIO();//关闭激光条
+
                 bool res = Camera2_1->getImage(Imagename);//获取图像
                 if(res)
                     return Imagename;

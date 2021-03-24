@@ -120,7 +120,6 @@ public:
     QVBoxLayout *verticalLayout_5;
     QDoubleSpinBox *toPosition_3;
     QPushButton *startToPosition_3;
-    QPushButton *pushButton_2;
 
     void setupUi(QDialog *manualmodeDialog)
     {
@@ -311,7 +310,7 @@ public:
         gridLayout->setContentsMargins(0, 0, 0, 0);
         distance3_down = new QSpinBox(gridLayoutWidget);
         distance3_down->setObjectName(QStringLiteral("distance3_down"));
-        distance3_down->setMaximum(200);
+        distance3_down->setMaximum(1000);
 
         gridLayout->addWidget(distance3_down, 0, 1, 1, 1);
 
@@ -323,7 +322,7 @@ public:
 
         velocity3_down = new QDoubleSpinBox(gridLayoutWidget);
         velocity3_down->setObjectName(QStringLiteral("velocity3_down"));
-        velocity3_down->setMinimum(-400);
+        velocity3_down->setMinimum(1);
         velocity3_down->setMaximum(400);
         velocity3_down->setValue(50);
 
@@ -342,7 +341,7 @@ public:
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
         distance3_up = new QSpinBox(gridLayoutWidget_2);
         distance3_up->setObjectName(QStringLiteral("distance3_up"));
-        distance3_up->setMaximum(200);
+        distance3_up->setMaximum(1000);
 
         gridLayout_2->addWidget(distance3_up, 0, 1, 1, 1);
 
@@ -354,7 +353,7 @@ public:
 
         velocity3_up = new QDoubleSpinBox(gridLayoutWidget_2);
         velocity3_up->setObjectName(QStringLiteral("velocity3_up"));
-        velocity3_up->setMinimum(-400);
+        velocity3_up->setMinimum(1);
         velocity3_up->setMaximum(400);
         velocity3_up->setValue(50);
 
@@ -380,7 +379,7 @@ public:
 
         velocity4_down = new QDoubleSpinBox(gridLayoutWidget_3);
         velocity4_down->setObjectName(QStringLiteral("velocity4_down"));
-        velocity4_down->setMinimum(-400);
+        velocity4_down->setMinimum(1);
         velocity4_down->setMaximum(400);
         velocity4_down->setValue(50);
 
@@ -394,7 +393,7 @@ public:
 
         distance4_down = new QSpinBox(gridLayoutWidget_3);
         distance4_down->setObjectName(QStringLiteral("distance4_down"));
-        distance4_down->setMaximum(200);
+        distance4_down->setMaximum(1000);
 
         gridLayout_3->addWidget(distance4_down, 0, 1, 1, 1);
 
@@ -412,7 +411,7 @@ public:
 
         distance4_up = new QSpinBox(gridLayoutWidget_4);
         distance4_up->setObjectName(QStringLiteral("distance4_up"));
-        distance4_up->setMaximum(200);
+        distance4_up->setMaximum(1000);
 
         gridLayout_4->addWidget(distance4_up, 0, 1, 1, 1);
 
@@ -424,7 +423,7 @@ public:
 
         velocity4_up = new QDoubleSpinBox(gridLayoutWidget_4);
         velocity4_up->setObjectName(QStringLiteral("velocity4_up"));
-        velocity4_up->setMinimum(-400);
+        velocity4_up->setMinimum(1);
         velocity4_up->setMaximum(400);
         velocity4_up->setValue(50);
 
@@ -444,13 +443,13 @@ public:
 
         distance2_up = new QSpinBox(gridLayoutWidget_5);
         distance2_up->setObjectName(QStringLiteral("distance2_up"));
-        distance2_up->setMaximum(200);
+        distance2_up->setMaximum(1000);
 
         gridLayout_5->addWidget(distance2_up, 0, 1, 1, 1);
 
         velocity2_up = new QDoubleSpinBox(gridLayoutWidget_5);
         velocity2_up->setObjectName(QStringLiteral("velocity2_up"));
-        velocity2_up->setMinimum(-400);
+        velocity2_up->setMinimum(1);
         velocity2_up->setMaximum(400);
         velocity2_up->setValue(50);
 
@@ -475,7 +474,7 @@ public:
 
         distance2_down = new QSpinBox(gridLayoutWidget_6);
         distance2_down->setObjectName(QStringLiteral("distance2_down"));
-        distance2_down->setMaximum(200);
+        distance2_down->setMaximum(1000);
 
         gridLayout_6->addWidget(distance2_down, 0, 1, 1, 1);
 
@@ -487,7 +486,7 @@ public:
 
         velocity2_down = new QDoubleSpinBox(gridLayoutWidget_6);
         velocity2_down->setObjectName(QStringLiteral("velocity2_down"));
-        velocity2_down->setMinimum(-400);
+        velocity2_down->setMinimum(1);
         velocity2_down->setMaximum(400);
         velocity2_down->setValue(50);
 
@@ -507,7 +506,7 @@ public:
 
         distance1_down = new QSpinBox(gridLayoutWidget_7);
         distance1_down->setObjectName(QStringLiteral("distance1_down"));
-        distance1_down->setMaximum(200);
+        distance1_down->setMaximum(1000);
 
         gridLayout_7->addWidget(distance1_down, 0, 1, 1, 1);
 
@@ -519,7 +518,7 @@ public:
 
         velocity1_down = new QDoubleSpinBox(gridLayoutWidget_7);
         velocity1_down->setObjectName(QStringLiteral("velocity1_down"));
-        velocity1_down->setMinimum(-400);
+        velocity1_down->setMinimum(1);
         velocity1_down->setMaximum(400);
         velocity1_down->setValue(50);
 
@@ -538,7 +537,7 @@ public:
 "QPushButton:hover{background-color: rgb(53, 161, 79);}\n"
 "\n"
 "QPushButton:pressed{background-color: rgb(53, 161, 79)}"));
-        distance1_up->setMaximum(200);
+        distance1_up->setMaximum(1000);
 
         gridLayout_8->addWidget(distance1_up, 0, 1, 1, 1);
 
@@ -556,7 +555,7 @@ public:
 
         velocity1_up = new QDoubleSpinBox(gridLayoutWidget_8);
         velocity1_up->setObjectName(QStringLiteral("velocity1_up"));
-        velocity1_up->setMinimum(-400);
+        velocity1_up->setMinimum(1);
         velocity1_up->setMaximum(400);
         velocity1_up->setValue(50);
 
@@ -650,18 +649,6 @@ public:
 
         verticalLayout_5->addWidget(startToPosition_3);
 
-        pushButton_2 = new QPushButton(manualmodeDialog);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(360, 180, 101, 51));
-        QFont font1;
-        font1.setPointSize(20);
-        font1.setBold(true);
-        font1.setItalic(false);
-        font1.setWeight(75);
-        pushButton_2->setFont(font1);
-        pushButton_2->setCursor(QCursor(Qt::ArrowCursor));
-        pushButton_2->setIconSize(QSize(40, 30));
-        pushButton_2->setAutoRepeatDelay(298);
 
         retranslateUi(manualmodeDialog);
 
@@ -672,10 +659,10 @@ public:
     {
         manualmodeDialog->setWindowTitle(QApplication::translate("manualmodeDialog", "Dialog", Q_NULLPTR));
         pushButton->setText(QString());
-        camera_1->setText(QApplication::translate("manualmodeDialog", "\346\265\213\351\207\2171", Q_NULLPTR));
-        camera_4->setText(QApplication::translate("manualmodeDialog", "\346\265\213\351\207\2174", Q_NULLPTR));
-        camera_3->setText(QApplication::translate("manualmodeDialog", "\346\265\213\351\207\2173", Q_NULLPTR));
-        camera_2->setText(QApplication::translate("manualmodeDialog", "\346\265\213\351\207\2172", Q_NULLPTR));
+        camera_1->setText(QApplication::translate("manualmodeDialog", "\347\233\270\346\234\2721", Q_NULLPTR));
+        camera_4->setText(QApplication::translate("manualmodeDialog", "\347\233\270\346\234\2724", Q_NULLPTR));
+        camera_3->setText(QApplication::translate("manualmodeDialog", "\347\233\270\346\234\2723", Q_NULLPTR));
+        camera_2->setText(QApplication::translate("manualmodeDialog", "\347\233\270\346\234\2722", Q_NULLPTR));
         motor1_down->setText(QString());
         motor1_up->setText(QString());
         motor4_up->setText(QString());
@@ -715,7 +702,6 @@ public:
         startToPosition_4->setText(QApplication::translate("manualmodeDialog", "\346\214\207\345\256\232\344\275\215\347\275\256", Q_NULLPTR));
         startToPosition_2->setText(QApplication::translate("manualmodeDialog", "\346\214\207\345\256\232\344\275\215\347\275\256", Q_NULLPTR));
         startToPosition_3->setText(QApplication::translate("manualmodeDialog", "\346\214\207\345\256\232\344\275\215\347\275\256", Q_NULLPTR));
-        pushButton_2->setText(QApplication::translate("manualmodeDialog", "\346\265\213\350\257\225", Q_NULLPTR));
     } // retranslateUi
 
 };

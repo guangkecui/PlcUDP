@@ -144,8 +144,8 @@ void MainWindow::unitUi()
     //将container添加到水平布局中
     hLayout->addWidget(container, 1);
     hLayout->addLayout(vLayout);
-    series->setItemSize(0.05f);//设置点的大小
-    unLimitseries->setItemSize(0.05f);
+    series->setItemSize(0.008);//设置点的大小
+    unLimitseries->setItemSize(0.005);
     Limitseries->setItemSize(0.005);
     Limitseries->setBaseColor(QColor(0,255,0));
     unLimitseries->setBaseColor(QColor(255,0,0));
@@ -153,9 +153,9 @@ void MainWindow::unitUi()
     scatter->setShadowQuality(QAbstract3DGraph::ShadowQualityNone);//设置阴影
     //scatter->setOrthoProjection(false);
     //scatter->scene()->activeCamera()->setCameraPreset(Q3DCamera::CameraPresetFront);
-    //scatter->axisX()->setRange(-10,10);
-    //scatter->axisY()->setRange(-10,5000);
-    //scatter->axisZ()->setRange(-1900,1900);
+//    scatter->axisX()->setRange(-10,10);
+//    scatter->axisY()->setRange(-10,5000);
+//    scatter->axisZ()->setRange(-1900,1900);
     scatter->setAspectRatio(0.7);
     scatter->addSeries(series);
     scatter->addSeries(Limitseries);
@@ -298,10 +298,10 @@ void MainWindow::setPicturePath()
 void MainWindow::ScatterAddonePoint(double x, double y, double z)
 {
     if(isInLimits(x,y,z)){
-        series->dataProxy()->addItem(QVector3D(x, y, z));
+        series->dataProxy()->addItem(QVector3D(x, z, y));
     }
     else{
-        unLimitseries->dataProxy()->addItem(QVector3D(x, y, z));
+        unLimitseries->dataProxy()->addItem(QVector3D(x, z, y));
     }
 }
 
@@ -554,6 +554,7 @@ bool MainWindow::isInLimits(int Inputx,int Inputy, int Inputz)
             }
         }
     }
+    return true;
 }
 
 void MainWindow::dealMsg()
@@ -736,9 +737,6 @@ void MainWindow::CamerasGetImage(uchar cam)
     case 4:
         emit startGetImage(4);
         break;
-    case 5:
-        emit startGetImage(5);
-        break;
     default:
         break;
     }
@@ -852,14 +850,23 @@ void MainWindow::on_openPictureFile_clicked()
 **********************************************/
 void MainWindow::on_startProcess_clicked()
 {
-    ScatterAddonePoint(10,1,2);
-    ScatterAddonePoint(10,2,4);
-    ScatterAddonePoint(10,3,6);
-    ScatterAddonePoint(10,4,8);
-    ScatterAddonePoint(100,5,10);
-    ScatterAddonePoint(1000,6,12);
 
-    //emit ImageProcessStart();
+    if(m_SensorUnit->Sensor_1->ReadData(SENSORFILE_1,false))
+        DisplayText(QString("The parameters of sensor 1 were successfully read."));
+    else
+        DisplayText(QString("Failed to read the parameters of sensor 1."));
+    if(m_SensorUnit->Sensor_2->ReadData(SENSORFILE_2,false))
+        DisplayText(QString("The parameters of sensor 2 were successfully read."));
+    else
+        DisplayText(QString("Failed to read the parameters of sensor 2."));
+    if(m_SensorUnit->Sensor_3->ReadData(SENSORFILE_3,false))
+        DisplayText(QString("The parameters of sensor 3 were successfully read."));
+    else
+        DisplayText(QString("Failed to read the parameters of sensor 3."));
+    if(m_SensorUnit->Sensor_4->ReadData(SENSORFILE_4,false))
+        DisplayText(QString("The parameters of sensor 4 were successfully read."));
+    else
+        DisplayText(QString("Failed to read the parameters of sensor 4."));
 }
 
 /**********************************************
@@ -1080,22 +1087,15 @@ void MainWindow::on_readLimit_currentIndexChanged(int index)
     switch (index) {
     case 0:
         readLimitInf(LIMITINFORMATION1);
-        DisplayText(QString("采用限界1."));
         break;
     case 1:
         readLimitInf(LIMITINFORMATION2);
-        DisplayText(QString("采用限界2."));
     default:
+
         break;
     }
 }
 
-/**********************************************
-  函数名称：on_FrontView_clicked
-  输入参数：
-  输出参数：
-  函数功能：显示正视图
-**********************************************/
 void MainWindow::on_FrontView_clicked()
 {
     scatter->scene()->activeCamera()->setCameraPreset(Q3DCamera::CameraPresetRightLow);
@@ -1113,16 +1113,17 @@ void MainWindow::on_isSinglePointShow_stateChanged(int arg1)
     switch (arg1) {
     case Qt::Checked:
         emit sendIsSinglePointShow(true);
-        DisplayText(QString("单点显示."));
+        DisplayText(QString("单点显示\n"));
         break;
     case Qt::Unchecked:
         emit sendIsSinglePointShow(false);
-        DisplayText(QString("取消单点显示."));
+        DisplayText(QString("取消单点显示\n"));
         break;
     default:
         break;
     }
 }
+
 
 void MainWindow::on_threshold_valueChanged(int arg1)
 {

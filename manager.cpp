@@ -1,5 +1,6 @@
 #include "manager.h"
 #include "omronpst.h"
+#include <QtTest/QTest>
 Manager::Manager(Fins *fins, Cameras *cams)
 {
     _mutex.lock();
@@ -74,7 +75,7 @@ void Manager::ManualWorkStepping()
 {
     if(Command.size()==7){
         if(manualWorkDist>0&&manualWorkDist<MAXDISTANCE){//步进值介于0与maxdistance之间
-            //sendVelocity(workingMotor,velocity);//将速度信息发送给电机
+            sendVelocity(workingMotor,velocity);//将速度信息发送给电机
             QByteArray dis = m_fins->hexstrToByteArray(DISTANCE_FLAG);
             dis.append(m_fins->doubleToByteArray(manualWorkDist));//将距离信息组合成指令
             if(m_fins->MemoryAreaWrite(dis)){//将距离信息发送过去
@@ -155,7 +156,7 @@ void Manager::ManualWorkContinuous()
             }
         }
         else{
-            //sendVelocity(workingMotor,velocity);//先将速度信息发给电机
+             sendVelocity(workingMotor,velocity);//先将速度信息发给电机
              if(m_fins->MemoryAreaWrite(Command)){//将运动指令发送给PLC
                  emit message("指令管理器：continue指令-发送成功\n");
                  concelWorking();//管理器停止工作，等待停止按键的指令
@@ -315,7 +316,7 @@ void Manager::setZeroMotorFlags(int motor)
   函数名称：setMotorToPosition
   输入参数：motor:电机号；position：指定位置
   输出参数：
-  函数功能：另电机到达指定位置
+  函数功能：令电机到达指定位置
 **********************************************/
 void Manager::setMotorToPosition(int motor, double position)
 {
@@ -338,7 +339,7 @@ void Manager::setMotorToPosition(int motor, double position)
             emit message(QString("指令管理器：获取电机位置失败\n"));
         }
         else{
-            double differencePosition = (position-curPosition)/0.75;//当前位置与指定位置的差值
+            double differencePosition = (position-curPosition);//当前位置与指定位置的差值
             QByteArray dis = m_fins->hexstrToByteArray(DISTANCE_FLAG);
             dis.append(m_fins->doubleToByteArray(differencePosition>0?differencePosition:-differencePosition));//将距离信息组合成指令
             if(!m_fins->MemoryAreaWrite(dis)){//将距离信息发送过去
@@ -362,7 +363,7 @@ void Manager::setMotorToPosition(int motor, double position)
             emit message(QString("指令管理器：获取电机位置失败\n"));
         }
         else{
-            double differencePosition = (position-curPosition)/0.75;//当前位置与指定位置的差值
+            double differencePosition = (position-curPosition);//当前位置与指定位置的差值
             QByteArray dis = m_fins->hexstrToByteArray(DISTANCE_FLAG);
             dis.append(m_fins->doubleToByteArray(differencePosition>0?differencePosition:-differencePosition));//将距离信息组合成指令
             if(!m_fins->MemoryAreaWrite(dis)){//将距离信息发送过去
@@ -386,7 +387,7 @@ void Manager::setMotorToPosition(int motor, double position)
             emit message(QString("指令管理器：获取电机位置失败\n"));
         }
         else{
-            double differencePosition = (position-curPosition)/0.75;//当前位置与指定位置的差值
+            double differencePosition = (position-curPosition);//当前位置与指定位置的差值
             QByteArray dis = m_fins->hexstrToByteArray(DISTANCE_FLAG);
             dis.append(m_fins->doubleToByteArray(differencePosition>0?differencePosition:-differencePosition));//将距离信息组合成指令
             if(!m_fins->MemoryAreaWrite(dis)){//将距离信息发送过去
@@ -410,7 +411,7 @@ void Manager::setMotorToPosition(int motor, double position)
             emit message(QString("指令管理器：获取电机位置失败\n"));
         }
         else{
-            double differencePosition = (position-curPosition)/0.75;//当前位置与指定位置的差值
+            double differencePosition = (position-curPosition);//当前位置与指定位置的差值
             QByteArray dis = m_fins->hexstrToByteArray(DISTANCE_FLAG);
             dis.append(m_fins->doubleToByteArray(differencePosition>0?differencePosition:-differencePosition));//将距离信息组合成指令
             if(!m_fins->MemoryAreaWrite(dis)){//将距离信息发送过去
@@ -431,7 +432,7 @@ void Manager::setMotorToPosition(int motor, double position)
     default:
         break;
     }
-    if(curWorkingMode==ManualStepping){
+    if(curWorkingMode!=ManualStepping){
         //先给步进连续模式置0
         QByteArray ManualSteppingZero = m_fins->hexstrToByteArray(MANUALSTEPPING);
         ManualSteppingZero[ManualSteppingZero.size()-1] = (uint8_t)0x00;
@@ -720,28 +721,28 @@ void Manager::sendVelocity(int motor, double inputVec)
     switch (motor) {
     case 1:
     {
-        QByteArray mem = m_fins->hexstrToByteArray(VELOCITY_1);
+        QByteArray mem = m_fins->hexstrToByteArray(VELOCITY_MANUAL);
         mem.append(vec);
         if(m_fins->MemoryAreaWrite(mem));
         else
             emit message("指令管理器：电机1的速度信息发送失败\n");
         break;}
     case 2:{
-        QByteArray mem = m_fins->hexstrToByteArray(VELOCITY_2);
+        QByteArray mem = m_fins->hexstrToByteArray(VELOCITY_MANUAL);
         mem.append(vec);
         if(m_fins->MemoryAreaWrite(mem));
         else{
             emit message("指令管理器：电机2的速度信息发送失败\n");}
         break;}
     case 3:{
-        QByteArray mem = m_fins->hexstrToByteArray(VELOCITY_3);
+        QByteArray mem = m_fins->hexstrToByteArray(VELOCITY_MANUAL);
         mem.append(vec);
         if(m_fins->MemoryAreaWrite(mem));
         else
             emit message("指令管理器：电机3的速度信息发送失败\n");
         break;}
     case 4:{
-        QByteArray mem = m_fins->hexstrToByteArray(VELOCITY_4);
+        QByteArray mem = m_fins->hexstrToByteArray(VELOCITY_MANUAL);
         mem.append(vec);
         if(m_fins->MemoryAreaWrite(mem));
         else
@@ -827,15 +828,17 @@ void Manager::getCameraImage(int camera)
     case 1:{
         getPosition(1);//获取电机1的位置
         imagename2_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera1_2,false);
+        imagename1_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera1_1,false);
         imagename2_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera1_2,true);
+        imagename1_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera1_1,true);
         if(""==imagename2_lightOFF||""==imagename2_lightON)
             emit message(QString("相机1-2拍照失败"));
         else{
             emit singleImageProcess(imagename2_lightOFF,imagename2_lightON);
             emit message(QString("相机1-2拍照成功"));
         }
-        imagename1_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera1_1,false);
-        imagename1_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera1_1,true);
+
+
         if(""==imagename1_lightOFF||""==imagename1_lightON)
             emit message(QString("相机1-1拍照失败"));
         else{
@@ -846,15 +849,17 @@ void Manager::getCameraImage(int camera)
     case 2:{
         getPosition(3);
         imagename2_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera2_2,false);
+        imagename1_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera2_1,false);
         imagename2_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera2_2,true);
+        imagename1_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera2_1,true);
+
         if(""==imagename2_lightOFF||""==imagename2_lightON)
             emit message(QString("相机2-2拍照失败"));
         else{
             emit singleImageProcess(imagename2_lightOFF,imagename2_lightON);
             emit message(QString("相机2-2拍照成功"));
         }
-        imagename1_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera2_1,false);
-        imagename1_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera2_1,true);
+
         if(""==imagename1_lightOFF||""==imagename1_lightON)
             emit message(QString("相机2-1拍照失败"));
         else{
@@ -865,15 +870,17 @@ void Manager::getCameraImage(int camera)
     case 3:{
         getPosition(5);
         imagename2_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera3_2,false);
+        imagename1_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera3_1,false);
         imagename2_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera3_2,true);
+        imagename1_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera3_1,true);
         if(""==imagename2_lightOFF||""==imagename2_lightON)
             emit message(QString("相机3-2拍照失败"));
         else{
             emit singleImageProcess(imagename2_lightOFF,imagename2_lightON);
             emit message(QString("相机3-2拍照成功"));
         }
-        imagename1_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera3_1,false);
-        imagename1_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera3_1,true);
+
+
         if(""==imagename1_lightOFF||""==imagename1_lightON)
             emit message(QString("相机3-1拍照失败"));
         else{
@@ -884,15 +891,17 @@ void Manager::getCameraImage(int camera)
     case 4:{
         getPosition(7);
         imagename2_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera4_2,false);
+        imagename1_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera4_1,false);
         imagename2_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera4_2,true);
+        imagename1_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera4_1,true);
         if(""==imagename2_lightOFF||""==imagename2_lightON)
             emit message(QString("相机4-2拍照失败"));
         else{
             emit singleImageProcess(imagename2_lightOFF,imagename2_lightON);
             emit message(QString("相机4-2拍照成功"));
         }
-        imagename1_lightOFF=m_cameras->getImageOfCamera(CAMERALABEL::Camera4_1,false);
-        imagename1_lightON=m_cameras->getImageOfCamera(CAMERALABEL::Camera4_1,true);
+
+
         if(""==imagename1_lightOFF||""==imagename1_lightON)
             emit message(QString("相机4-1拍照失败"));
         else{
@@ -900,24 +909,7 @@ void Manager::getCameraImage(int camera)
             emit message(QString("相机4-1拍照成功"));
         }
         break;}
-    case 5:{
-           imagename1_lightON="C:/Users/NB70TA/Desktop/ceshi_pictures/4_1_1_-0.0002.bmp";
-           if(""==imagename1_lightON)
-               emit message(QString("相机1生成失败"));
-           else{
-               //emit singleImageProcess(imagename1);
-               emit message(QString("相机1生成成功"));
-           }
-           imagename2_lightON="C:/Users/NB70TA/Desktop/ceshi_pictures/4_2_0_-0.0002.bmp";
 
-           if(""==imagename2_lightON)
-               emit message(QString("相机2生成失败"));
-           else{
-               //emit singleImageProcess(imagename2);
-               emit message(QString("相机2生成成功"));
-           }
-           break;
-        }
     default:
         break;
     }
@@ -1154,11 +1146,11 @@ void Manager::timerPollDeal()
     for(int i =0;i<MotorPolled_IsWorking.size();++i){
         int motor = MotorPolled_IsWorking[i];//记录电机号
         if(m_fins->MemoryAreaRead(m_fins->hexstrToByteArray(MotorPolled_Inplace[motor]))){
-            QThread::msleep(20);
+            QThread::msleep(1000);
                 QByteArray data= m_fins->getRespFinsData();
                 m_fins->clearRespFinsData();//把数据清空
                 if( data[0]==(char)0x01){//电机已到位
-                    getPosition((CAMERALABEL)(2*MotorPolled_IsWorking[i]+1));
+                    getPosition((CAMERALABEL)(2*motor+1));
                     QString imageLightOFF = m_cameras->getImageOfCamera((CAMERALABEL)(2*MotorPolled_IsWorking[i]+1),false);
                     QString imageLightON = m_cameras->getImageOfCamera((CAMERALABEL)(2*MotorPolled_IsWorking[i]+1),true);
                     if(imageLightOFF==""||imageLightON==""){ //对相应的相机进行拍照

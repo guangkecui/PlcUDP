@@ -57,7 +57,7 @@ QPushButton:hover{background-color: rgb(53, 161, 79);}
 QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
    </property>
    <property name="text">
-    <string>测量1</string>
+    <string>相机1</string>
    </property>
   </widget>
   <widget class="QPushButton" name="camera_4">
@@ -77,7 +77,7 @@ QPushButton:hover{background-color: rgb(53, 161, 79);}
 QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
    </property>
    <property name="text">
-    <string>测量4</string>
+    <string>相机4</string>
    </property>
   </widget>
   <widget class="QPushButton" name="camera_3">
@@ -109,7 +109,7 @@ QPushButton:hover{background-color: rgb(53, 161, 79);}
 QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
    </property>
    <property name="text">
-    <string>测量3</string>
+    <string>相机3</string>
    </property>
   </widget>
   <widget class="QPushButton" name="camera_2">
@@ -129,7 +129,7 @@ QPushButton:hover{background-color: rgb(53, 161, 79);}
 QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
    </property>
    <property name="text">
-    <string>测量2</string>
+    <string>相机2</string>
    </property>
   </widget>
   <widget class="QPushButton" name="motor1_down">
@@ -488,7 +488,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="0" column="1">
      <widget class="QSpinBox" name="distance3_down">
       <property name="maximum">
-       <number>200</number>
+       <number>1000</number>
       </property>
      </widget>
     </item>
@@ -508,7 +508,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="1" column="1">
      <widget class="QDoubleSpinBox" name="velocity3_down">
       <property name="minimum">
-       <double>-400.000000000000000</double>
+       <double>1.000000000000000</double>
       </property>
       <property name="maximum">
        <double>400.000000000000000</double>
@@ -540,7 +540,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="0" column="1">
      <widget class="QSpinBox" name="distance3_up">
       <property name="maximum">
-       <number>200</number>
+       <number>1000</number>
       </property>
      </widget>
     </item>
@@ -560,7 +560,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="1" column="1">
      <widget class="QDoubleSpinBox" name="velocity3_up">
       <property name="minimum">
-       <double>-400.000000000000000</double>
+       <double>1.000000000000000</double>
       </property>
       <property name="maximum">
        <double>400.000000000000000</double>
@@ -611,7 +611,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="1" column="1">
      <widget class="QDoubleSpinBox" name="velocity4_down">
       <property name="minimum">
-       <double>-400.000000000000000</double>
+       <double>1.000000000000000</double>
       </property>
       <property name="maximum">
        <double>400.000000000000000</double>
@@ -637,7 +637,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="0" column="1">
      <widget class="QSpinBox" name="distance4_down">
       <property name="maximum">
-       <number>200</number>
+       <number>1000</number>
       </property>
      </widget>
     </item>
@@ -669,7 +669,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="0" column="1">
      <widget class="QSpinBox" name="distance4_up">
       <property name="maximum">
-       <number>200</number>
+       <number>1000</number>
       </property>
      </widget>
     </item>
@@ -689,7 +689,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="1" column="1">
      <widget class="QDoubleSpinBox" name="velocity4_up">
       <property name="minimum">
-       <double>-400.000000000000000</double>
+       <double>1.000000000000000</double>
       </property>
       <property name="maximum">
        <double>400.000000000000000</double>
@@ -727,14 +727,14 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="0" column="1">
      <widget class="QSpinBox" name="distance2_up">
       <property name="maximum">
-       <number>200</number>
+       <number>1000</number>
       </property>
      </widget>
     </item>
     <item row="1" column="1">
      <widget class="QDoubleSpinBox" name="velocity2_up">
       <property name="minimum">
-       <double>-400.000000000000000</double>
+       <double>1.000000000000000</double>
       </property>
       <property name="maximum">
        <double>400.000000000000000</double>
@@ -779,7 +779,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="0" column="1">
      <widget class="QSpinBox" name="distance2_down">
       <property name="maximum">
-       <number>200</number>
+       <number>1000</number>
       </property>
      </widget>
     </item>
@@ -799,7 +799,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="1" column="1">
      <widget class="QDoubleSpinBox" name="velocity2_down">
       <property name="minimum">
-       <double>-400.000000000000000</double>
+       <double>1.000000000000000</double>
       </property>
       <property name="maximum">
        <double>400.000000000000000</double>
@@ -837,7 +837,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="0" column="1">
      <widget class="QSpinBox" name="distance1_down">
       <property name="maximum">
-       <number>200</number>
+       <number>1000</number>
       </property>
      </widget>
     </item>
@@ -857,7 +857,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="1" column="1">
      <widget class="QDoubleSpinBox" name="velocity1_down">
       <property name="minimum">
-       <double>-400.000000000000000</double>
+       <double>1.000000000000000</double>
       </property>
       <property name="maximum">
        <double>400.000000000000000</double>
@@ -889,7 +889,7 @@ QPushButton:hover{background-color: rgb(53, 161, 79);}
 QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
       </property>
       <property name="maximum">
-       <number>200</number>
+       <number>1000</number>
       </property>
      </widget>
     </item>
@@ -922,7 +922,7 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
     <item row="1" column="1">
      <widget class="QDoubleSpinBox" name="velocity1_up">
       <property name="minimum">
-       <double>-400.000000000000000</double>
+       <double>1.000000000000000</double>
       </property>
       <property name="maximum">
        <double>400.000000000000000</double>
@@ -1065,39 +1065,6 @@ QPushButton:pressed{background-color: rgb(53, 161, 79)}</string>
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>360</x>
-     <y>180</y>
-     <width>101</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>20</pointsize>
-     <weight>75</weight>
-     <italic>false</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
-   </property>
-   <property name="text">
-    <string>测试</string>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>40</width>
-     <height>30</height>
-    </size>
-   </property>
-   <property name="autoRepeatDelay">
-    <number>298</number>
-   </property>
   </widget>
  </widget>
  <resources/>

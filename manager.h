@@ -51,7 +51,7 @@ public:
     double_t getMotorPosition(QByteArray Position);
 signals:
     void message(QString msg);
-    void singleImageProcess(QString ImageName_LightOFF,QString ImageName_LightON);//相机已拍下一张图片，传给图像处理线程处理
+    void singleImageProcess(QString ImageName_LightOFF,QString ImageName_LightON);//相机已拍下图片，传给图像处理线程处理
     void AutoModeEnd();
 private slots:
     void getPosition(int camera);

@@ -16,8 +16,8 @@ namespace omron{
     #define SENSORFILE_2 "D:/HSRSL/SensorData/SensorData_2.txt"
     #define SENSORFILE_3 "D:/HSRSL/SensorData/SensorData_3.txt"
     #define SENSORFILE_4 "D:/HSRSL/SensorData/SensorData_4.txt"
-    #define LIMITINFORMATION1 "F:/HSRSL/LimitInformation/LimitInf1.txt"
-    #define LIMITINFORMATION2 "F:/HSRSL/LimitInformation/LimitInf2.txt"
+    #define LIMITINFORMATION1 "D:/HSRSL/LimitInformation/LimitInf1.txt"
+    #define LIMITINFORMATION2 "D:/HSRSL/LimitInformation/LimitInf2.txt"
     #define POINTCLOUDSAVEDIR "D:/HSRSL/PointCloudData/"
     #define CameraConfiguration1_1 "D:/HSRSL/CameraConfiguration/CameraConfiguration1_1.mvcfg"
     #define CameraConfiguration1_2 "D:/HSRSL/CameraConfiguration/CameraConfiguration1_2.mvcfg"
@@ -83,10 +83,7 @@ namespace omron{
     #define ORIGINLINK_2 "310003020001"//电机2原点关联标志位
     #define ORIGINLINK_3 "310003030001"//电机3原点关联标志位
     #define ORIGINLINK_4 "310003040001"//电机4原点关联标志位
-    #define VELOCITY_1 "820001000004" //存储电机1的速度信息，4个字节
-    #define VELOCITY_2 "820001040004" //存储电机2的速度信息，4个字节
-    #define VELOCITY_3 "820001080004" //存储电机3的速度信息，4个字节
-    #define VELOCITY_4 "8200010C0004" //存储电机4的速度信息，4个字节
+    #define VELOCITY_MANUAL "820032000004" //存储手动模式电机的速度信息，4个字节 D50
 
     #define SAFELOCATION_1 "310002060001"//电机1的安全位置标志位
     #define SAFELOCATION_2 "310003060001"//电机1的安全位置标志位

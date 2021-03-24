@@ -4,6 +4,8 @@
 #include<QDir>
 #include<QMetaType>
 #include<QVector3D>
+#include<iostream>
+
 Q_DECLARE_METATYPE (QVector<double>)
 using namespace std;
 using namespace cv;
@@ -11,7 +13,7 @@ using namespace cv;
 ImageProce::ImageProce(QString InputFilePath, sensorunit *sensors, QObject *parent):
     workingFilePath(InputFilePath),
     isSinglePointShow(false),
-    m_threshold(220),
+    m_threshold(200),
     QObject(parent)
 {
     qRegisterMetaType<QVector<double>>("QVector<double>");
@@ -62,7 +64,7 @@ void ImageProce::UndistortPoint2d(vector<cv::Mat> & src, vector<cv::Mat> & dst,M
                     double y0 = yDistortion;
 
                     //这里使用迭代的方式进行求解，因为根据2中的公式直接求解是困难的，所以通过设定初值进行迭代，这也是OpenCV的求解策略；
-                    for (int j = 0; j < 20; j++)
+                    for (int j = 0; j < 200; j++)
                     {
                         double r2 = xDistortion * xDistortion + yDistortion * yDistortion;
 
@@ -231,11 +233,13 @@ void ImageProce::findLightbarCenter(Mat &InputImg, vector<Mat> &ImaeCenter,int T
     Mat img0 = InputImg;//此为原图，有背景
     Mat img;//此为处理图
     img0.copyTo(img);//拷贝矩阵
-    threshold(img, img, 230, 255, THRESH_TOZERO);
-    blur(img,img,Size(3,3));//均值滤波
-                         //高斯滤波
-    img.convertTo(img, CV_32FC1);
-    GaussianBlur(img, img, Size(0, 0), 7, 7);
+//    namedWindow("img",0);
+//    imshow("img",img);
+    //threshold(img, img, 200, 255, THRESH_TOZERO);
+//    blur(img,img,Size(3,3));//均值滤波
+//                         //高斯滤波
+//    img.convertTo(img, CV_32FC1);
+//    GaussianBlur(img, img, Size(0, 0), 7, 7);
 
     //*thinning-zhangsuen算法*/
     if(TYPE == 1 ){
@@ -243,6 +247,7 @@ void ImageProce::findLightbarCenter(Mat &InputImg, vector<Mat> &ImaeCenter,int T
         img.convertTo(img,CV_8UC1);
         threshold(img,GrayCenter,50,255,THRESH_BINARY);
         thinning(GrayCenter,GrayCenter);
+        //imshow("GrayCenter",GrayCenter);
         for (int row = 0; row < GrayCenter.rows; ++row) {
             uchar* rowptr = GrayCenter.ptr<uchar>(row);
             int col = 0;
@@ -410,16 +415,21 @@ void ImageProce::findPictures(const QString &_filePath)
   函数名称：processSingleMonocular
   输入参数：InputSrc:输入图片;distance:距离信息
             isSinglePoint:是否单点显示，即将激光条中y值最大的点提取出来，其他点舍弃
+            sonsorNum:传感器标号，用于单点显示点的筛选，1，3号传感器根据z绝对值最大值的点来筛选，
+                                                      2，4号传感器根据y绝对值最大值的点来筛选.
   输出参数：
   函数功能：单目莫模式下处理单张图片
 **********************************************/
-void ImageProce::processSingleMonocular(Mat &InputSrc,double _distance,bool isSinglePoint,int sensorNum)
+void ImageProce::processSingleMonocular(Mat &InputSrc,double _distance,bool isSinglePoint,int sonsorNum)
 {
+    Mat ImageUndist;//存储矫正后的图像
+    undistort(InputSrc,ImageUndist,workingCameraMatrix,workingDistCoeffs);
     vector<Mat> ImageCenters;//图像的中心点坐标
-    findLightbarCenter(InputSrc,ImageCenters);//寻找中心点坐标
     vector<Mat> ImageCenters_undist;//矫正畸变后的图像的中心点坐标
-    UndistortPoint2d(ImageCenters,ImageCenters_undist,
-                     workingCameraMatrix,workingDistCoeffs);//畸变矫正
+    findLightbarCenter(ImageUndist,ImageCenters_undist);//寻找中心点坐标
+
+    //UndistortPoint2d(ImageCenters,ImageCenters_undist,
+                     //workingCameraMatrix,workingDistCoeffs);//畸变矫正
     Mat _MatrixInv(3,3,CV_64FC1);
     //workingCameraMatrix.convertTo(workingCameraMatrix,CV_32FC1);
     invert( workingCameraMatrix,_MatrixInv);//内参求逆矩阵
@@ -428,8 +438,12 @@ void ImageProce::processSingleMonocular(Mat &InputSrc,double _distance,bool isSi
     Mat PointInCamera(3,1,CV_64FC1);//初始化相机坐标系下点的坐标
     Mat PointInSensor(4,1,CV_64FC1);//初始化传感器坐标系下点的坐标
     Mat PointInTrack(4,1,CV_64FC1);//初始化轨道坐标系下点的坐标
-    QVector<double> xVec;QVector<double> yVec;QVector<double> zVec;
 
+    QVector<double> xVec;QVector<double> yVec;QVector<double> zVec;
+    QVector3D maxYpoint;//y值绝对值最大的点
+    maxYpoint.setY(0);
+    QVector3D maxZpoint;//z值绝对值最大的点
+    maxZpoint.setZ(0);
     for(int i=0;i<ImageCenters_undist.size();++i){
         Mat A_inv = _MatrixInv*ImageCenters_undist[i];
         double a = A_inv.at<double>(0,0);
@@ -458,9 +472,94 @@ void ImageProce::processSingleMonocular(Mat &InputSrc,double _distance,bool isSi
         zVec.push_back(PointInTrack.at<double>(2,0));
 
     }
+
     if(isSinglePoint){
-        singlePointShow(xVec,yVec,zVec,sensorNum);
-    }
+        switch (sonsorNum) {
+        case 11:
+        case 12:
+        case 31:
+        case 32:{
+            for(int i=0;i<zVec.size();++i){
+                double srcPointz = zVec[i];
+                if(srcPointz<0){
+                    srcPointz = -srcPointz;
+                }
+                if(srcPointz>maxZpoint.z()){
+                    maxZpoint.setX(xVec[i]);
+                    maxZpoint.setY(yVec[i]);
+                    maxZpoint.setZ(zVec[i]);
+                }
+            }
+            xVec.clear();yVec.clear();zVec.clear();
+            xVec.push_back(0);
+            yVec.push_back(maxZpoint.y());
+            zVec.push_back(maxZpoint.z());
+            break;}
+        case 21:
+        case 22:
+        case 41:
+        case 42:{
+            for(int i=0;i<yVec.size();++i){
+                double srcPointy = yVec[i];
+                if(srcPointy<0){
+                    srcPointy = -srcPointy;
+                }
+                if(srcPointy>maxYpoint.y()){
+                    maxYpoint.setX(xVec[i]);
+                    maxYpoint.setY(yVec[i]);
+                    maxYpoint.setZ(zVec[i]);
+                }
+            }
+            xVec.clear();yVec.clear();zVec.clear();
+            xVec.push_back(0);
+            yVec.push_back(maxYpoint.y());
+            zVec.push_back(maxYpoint.z());
+            break;}
+           }
+        //相机分割显示
+        switch (sonsorNum) {
+        case 11:
+            break;
+        case 12:
+            break;
+        case 21:
+            if(!yVec.empty()){
+                if(yVec[0]<=1700){
+                    xVec.clear();yVec.clear();zVec.clear();
+                }
+            }
+            break;
+        case 22:
+            if(!yVec.empty()){
+                if(yVec[0]>1700){
+                    xVec.clear();yVec.clear();zVec.clear();
+                }
+            }
+            break;
+        case 31:
+            break;
+        case 32:
+            xVec.clear();yVec.clear();zVec.clear();
+            break;
+        case 41:
+            if(!yVec.empty()){
+                if(yVec[0]>=-1700){
+                    xVec.clear();yVec.clear();zVec.clear();
+                }
+            }
+            break;
+        case 42:
+            if(!yVec.empty()){
+                if(yVec[0]<-1700){
+                    xVec.clear();yVec.clear();zVec.clear();
+                }
+            }
+            break;
+        default:
+            break;
+        }
+      }
+
     emit sendPointToMainwindow(xVec,yVec,zVec);
 }
 
@@ -485,19 +584,20 @@ void ImageProce::processMultipleMonocular()
 
 /**********************************************
   函数名称：setMatrixFromImagename
-  输入参数：imageName：图片名称;sensorNum:传感器标号
+  输入参数：imageName：图片名称,sensorNum传感器标号
   输出参数：传感器距离原点的距离
   函数功能：根据图片名称设置相机内参/畸变参数/相机到传感器RT/传感器到轨道RT
 **********************************************/
-double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
+double_t ImageProce::setMatrixFromImagename(QString &imageFile,int& sensorNum)
 {
     QString imageName = imageFile.mid(imageFile.lastIndexOf("/")+1,imageFile.lastIndexOf("."));
         switch (imageName[0].toLatin1()-'0') {
         case 1:
-            sensorNum = 1;
+
             workingRTtoTrack = m_SensorUnit->Sensor_1->getRTOfTrack().clone();
             workingLinearMatrix = m_SensorUnit->Sensor_1->getLinearMatrix().clone();
             if((imageName[2].toLatin1()-'0')==1){
+                sensorNum = 11;
                 workingCameraMatrix = m_SensorUnit->Sensor_1->getCamera_Master()->getM().clone();
                 workingDistCoeffs = m_SensorUnit->Sensor_1->getCamera_Master()->getDist().clone();
                 LightPlane = m_SensorUnit->Sensor_1->getLight1();
@@ -505,6 +605,7 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
                 workingTtoSensor = m_SensorUnit->Sensor_1->getCamera_Master()->getTOfSensor().clone();
             }
             else{
+                sensorNum = 12;
                 workingCameraMatrix = m_SensorUnit->Sensor_1->getCamera_Attached()->getM().clone();
                 workingDistCoeffs = m_SensorUnit->Sensor_1->getCamera_Attached()->getDist().clone();
                 LightPlane = m_SensorUnit->Sensor_1->getLight2();
@@ -518,10 +619,10 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
             }
             break;
         case 2:
-            sensorNum = 2;
             workingRTtoTrack = m_SensorUnit->Sensor_2->getRTOfTrack().clone();
             workingLinearMatrix = m_SensorUnit->Sensor_2->getLinearMatrix().clone();
             if((imageName[2].toLatin1()-'0')==1){
+                sensorNum = 21;
                 workingCameraMatrix = m_SensorUnit->Sensor_2->getCamera_Master()->getM().clone();
                 workingDistCoeffs = m_SensorUnit->Sensor_2->getCamera_Master()->getDist().clone();
                 LightPlane = m_SensorUnit->Sensor_2->getLight1();
@@ -529,6 +630,7 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
                 workingTtoSensor = m_SensorUnit->Sensor_2->getCamera_Master()->getTOfSensor().clone();
             }
             else{
+                sensorNum = 22;
                 workingCameraMatrix = m_SensorUnit->Sensor_2->getCamera_Attached()->getM().clone();
                 workingDistCoeffs = m_SensorUnit->Sensor_2->getCamera_Attached()->getDist().clone();
                 LightPlane = m_SensorUnit->Sensor_2->getLight2();
@@ -541,10 +643,11 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
             }
             break;
         case 3:
-            sensorNum = 3;
+
             workingRTtoTrack = m_SensorUnit->Sensor_3->getRTOfTrack().clone();
             workingLinearMatrix = m_SensorUnit->Sensor_3->getLinearMatrix().clone();
             if((imageName[2].toLatin1()-'0')==1){
+                sensorNum = 31;
                 workingCameraMatrix = m_SensorUnit->Sensor_3->getCamera_Master()->getM().clone();
                 workingDistCoeffs = m_SensorUnit->Sensor_3->getCamera_Master()->getDist().clone();
                 LightPlane = m_SensorUnit->Sensor_3->getLight1();
@@ -552,6 +655,7 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
                 workingTtoSensor = m_SensorUnit->Sensor_3->getCamera_Master()->getTOfSensor().clone();
             }
             else{
+                sensorNum = 32;
                 workingCameraMatrix = m_SensorUnit->Sensor_3->getCamera_Attached()->getM().clone();
                 workingDistCoeffs = m_SensorUnit->Sensor_3->getCamera_Attached()->getDist().clone();
                 LightPlane = m_SensorUnit->Sensor_3->getLight2();
@@ -564,10 +668,11 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
             }
             break;
         case 4:
-            sensorNum = 4;
+
             workingRTtoTrack = m_SensorUnit->Sensor_4->getRTOfTrack().clone();
             workingLinearMatrix = m_SensorUnit->Sensor_4->getLinearMatrix().clone();
             if((imageName[2].toLatin1()-'0')==1){
+                sensorNum = 41;
                 workingCameraMatrix = m_SensorUnit->Sensor_4->getCamera_Master()->getM().clone();
                 workingDistCoeffs = m_SensorUnit->Sensor_4->getCamera_Master()->getDist().clone();
                 LightPlane = m_SensorUnit->Sensor_4->getLight1();
@@ -575,6 +680,7 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
                 workingTtoSensor = m_SensorUnit->Sensor_4->getCamera_Master()->getTOfSensor().clone();
             }
             else{
+                sensorNum = 42;
                 workingCameraMatrix = m_SensorUnit->Sensor_4->getCamera_Attached()->getM().clone();
                 workingDistCoeffs = m_SensorUnit->Sensor_4->getCamera_Attached()->getDist().clone();
                 LightPlane = m_SensorUnit->Sensor_4->getLight2();
@@ -595,96 +701,18 @@ double_t ImageProce::setMatrixFromImagename(QString &imageFile,int&sensorNum)
         return distance_str.toDouble();
 }
 
-/**********************************************
-  函数名称：singlePointShow
-  输入参数：xVec,yVec,zVec,采集到的三维点的集合;sensor:传感器标号
-  输出参数：无
-  函数功能：将集合中x、y或z绝对值最大（最小）的点找出来
-**********************************************/
-void ImageProce::singlePointShow(QVector<double> &xVec, QVector<double> &yVec, QVector<double> &zVec,int sensor)
-{
-    switch (sensor) {
-    case 1:{
-        QVector3D maxZpoint(0.0,0.0,0.0);//z值绝对值最大的点
-        for(int i=0;i<zVec.size();++i){
-            double srcPointz = zVec[i];
-            if(srcPointz<0){
-                srcPointz = -srcPointz;
-            }
-            if(srcPointz>maxZpoint.z()){
-                maxZpoint.setX(xVec[i]);
-                maxZpoint.setY(yVec[i]);
-                maxZpoint.setZ(zVec[i]);
-            }
-        }
-        xVec.clear();yVec.clear();zVec.clear();
-        xVec.push_back(maxZpoint.x());
-        yVec.push_back(maxZpoint.y());
-        zVec.push_back(maxZpoint.z());}
-        break;
-    case 2:
-    case 4:{
-        QVector3D maxYpoint(0.0,0.0,0.0);//y值绝对值最大的点
-        for(int i=0;i<yVec.size();++i){
-            double srcPointy = yVec[i];
-            if(srcPointy<0){
-                srcPointy = -srcPointy;
-            }
-            if(srcPointy>maxYpoint.z()){
-                maxYpoint.setX(xVec[i]);
-                maxYpoint.setY(yVec[i]);
-                maxYpoint.setZ(zVec[i]);
-            }
-        }
-        xVec.clear();yVec.clear();zVec.clear();
-        xVec.push_back(maxYpoint.x());
-        yVec.push_back(maxYpoint.y());
-        zVec.push_back(maxYpoint.z());}
-        break;
-    case 3:{
-        QVector3D minZpoint(4800.0,4800.0,4800.0);//z值绝对值最小的点
-        for(int i=0;i<zVec.size();++i){
-            double srcPointz = zVec[i];
-            if(srcPointz<0){
-                srcPointz = -srcPointz;
-            }
-            if(srcPointz<minZpoint.z()){
-                minZpoint.setX(xVec[i]);
-                minZpoint.setY(yVec[i]);
-                minZpoint.setZ(zVec[i]);
-            }
-        }
-        xVec.clear();yVec.clear();zVec.clear();
-        xVec.push_back(minZpoint.x());
-        yVec.push_back(minZpoint.y());
-        zVec.push_back(minZpoint.z());}
-        break;
-    default:
-        break;
-    }
-}
-
-/**********************************************
-  函数名称：receiveThresholdFromMaindow
-  输入参数：threshold_val:二值化阈值
-  输出参数：
-  函数功能：更改图片的灰度阈值
-**********************************************/
-void ImageProce::receiveThresholdFromMaindow(int threshold_val)
-{
-    m_threshold = threshold_val;
-}
-
 void ImageProce::receiveIsSinglePointShowFromMaindow(bool isSingleShow)
 {
      isSinglePointShow=isSingleShow;
-
 }
 
 
 void ImageProce::TestSlot()
 {
-
+//    xVec2.push_back(PointInZhu.at<double>(0,0));
+//    yVec2.push_back(PointInZhu.at<double>(1,0));
+//    zVec2.push_back(PointInZhu.at<double>(2,0));
+//    emit sendPointToMainwindow(xVec2,yVec2,zVec2);
 }
 
 /**********************************************
@@ -696,9 +724,31 @@ void ImageProce::TestSlot()
 **********************************************/
 void ImageProce::receiveFilepathFromManagerToImageProcess(QString ImagePath_LightOFF, QString ImagePath_LightON)
 {
-    int sensorNum;//用于标识传感器
+    //两张图片-处理过程
+    int sensorNum;//几号传感器
     double distance = setMatrixFromImagename(ImagePath_LightON,sensorNum);//根据图片名读取相机内外参
-    Mat src = imread(ImagePath_LightON.toStdString(),0);
-    processSingleMonocular(src,distance,isSinglePointShow,sensorNum);
+    Mat image_light_on  = imread(ImagePath_LightON.toStdString(),0);  //读有激光条图片
+    Mat image_light_off = imread(ImagePath_LightOFF.toStdString(),0); //读无激光条图片
 
+    Mat  image_absdiff; //相减图像
+    absdiff( image_light_on, image_light_off, image_absdiff);//两个图像相减
+
+    //Mat image_gray ;//转换为灰度图
+    //cvtColor(image_absdiff, image_gray, CV_BGR2GRAY);
+
+    Mat  image_Threshold; //二值化图像
+    threshold(image_absdiff, image_Threshold, m_threshold, 255, CV_THRESH_TOZERO);//200是根据采取到的图片，进行了二值化，得到相对比较好的阈值
+
+    Mat  image_Filter; //滤波图像
+    GaussianBlur(image_Threshold,image_Filter,Size(5,5),0,0);//高斯滤波
+
+  imwrite("C:/Users/Administrator/Desktop/0/dahua_camera1_filterimage.bmp", image_Filter);
+
+    processSingleMonocular(image_Filter,distance,isSinglePointShow,sensorNum);
+
+}
+
+void ImageProce::receiveThresholdFromMaindow(int val)
+{
+    m_threshold = val;
 }

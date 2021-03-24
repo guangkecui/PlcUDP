@@ -474,7 +474,7 @@ public:
         threshold = new QSpinBox(centralWidget);
         threshold->setObjectName(QStringLiteral("threshold"));
         threshold->setMaximum(255);
-        threshold->setValue(220);
+        threshold->setValue(200);
 
         horizontalLayout_3->addWidget(threshold);
 

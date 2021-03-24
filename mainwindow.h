@@ -102,7 +102,7 @@ signals:
     void sendMotorToPosition(int motor,double position);
     void sendCmdToManger(QString memory,bool flag);
     void sendIsSinglePointShow(bool isSingleShow);
-    void sendThresholdToImageProcess(int threshold_val);
+    void sendThresholdToImageProcess(int val);
 private slots:
     //消息处理函数,接收数据的响应函数
     void dealMsg();
@@ -188,6 +188,7 @@ private slots:
     void on_readLimit_currentIndexChanged(int index);
 
     void on_FrontView_clicked();
+
 
     void on_isSinglePointShow_stateChanged(int arg1);
 
