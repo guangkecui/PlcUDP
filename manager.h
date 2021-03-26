@@ -9,6 +9,9 @@
 #include"cameras.h"
 
 using namespace omron;
+//自动控制指令包
+
+
 class Manager: public QObject
 {
     Q_OBJECT
@@ -24,6 +27,7 @@ private:
     int workingMotor;           //手动模式下正在工作的电机
     double velocity;            //手动模式下电机的速度
     int cmdWaitTimes;
+    autoCmdPage m_autocmd;      //自动模式下的命令包
 public:
     Manager(Fins* fins,Cameras* cams);
     bool isPolling;             //是否正在轮询
@@ -31,6 +35,7 @@ public:
     QVector<QString> MotorPolled_Start;//自动模式下需要轮询的开始标志位
     QVector<QString> MotorPolled_Inplace;//自动模式下需要轮询的到位标志位
     QVector<QString> MotorPolled_End;//自动模式下需要轮询的结束标志位
+    QVector<int> MotorPolled_StartWorking;//自动模式下刚添加进来的电机；
     QVector<int> MotorPolled_IsWorking;//自动模式下记录正在工作的电机
     QVector<int> MotorPolled_EndWorking;//自动模式下记录已经结束工作的电机
     bool isWorking();

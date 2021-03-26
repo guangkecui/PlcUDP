@@ -70,7 +70,8 @@ SOURCES += main.cpp\
     readsensorsdialog.cpp \
     manager.cpp \
     imageproce.cpp \
-    findpicfile.cpp
+    findpicfile.cpp \
+    autodialog.cpp
 
 HEADERS  += mainwindow.h \
     fins.h \
@@ -96,7 +97,8 @@ HEADERS  += mainwindow.h \
     readsensorsdialog.h \
     manager.h \
     imageproce.h \
-    findpicfile.h
+    findpicfile.h \
+    autodialog.h
 
 FORMS    += mainwindow.ui \
     cammerwidget.ui \
@@ -104,7 +106,8 @@ FORMS    += mainwindow.ui \
     parametersetting.ui \
     manualmodedialog.ui \
     readsensorsdialog.ui \
-    findpicfile.ui
+    findpicfile.ui \
+    autodialog.ui
 
 DISTFILES +=
 

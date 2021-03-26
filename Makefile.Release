@@ -66,7 +66,8 @@ SOURCES       = main.cpp \
 		readsensorsdialog.cpp \
 		manager.cpp \
 		imageproce.cpp \
-		findpicfile.cpp release\qrc_motor.cpp \
+		findpicfile.cpp \
+		autodialog.cpp release\qrc_motor.cpp \
 		release\moc_mainwindow.cpp \
 		release\moc_cammerwidget.cpp \
 		release\moc_setcamerasprtwidget.cpp \
@@ -76,7 +77,8 @@ SOURCES       = main.cpp \
 		release\moc_readsensorsdialog.cpp \
 		release\moc_manager.cpp \
 		release\moc_imageproce.cpp \
-		release\moc_findpicfile.cpp
+		release\moc_findpicfile.cpp \
+		release\moc_autodialog.cpp
 OBJECTS       = release\main.obj \
 		release\mainwindow.obj \
 		release\fins.obj \
@@ -101,6 +103,7 @@ OBJECTS       = release\main.obj \
 		release\manager.obj \
 		release\imageproce.obj \
 		release\findpicfile.obj \
+		release\autodialog.obj \
 		release\qrc_motor.obj \
 		release\moc_mainwindow.obj \
 		release\moc_cammerwidget.obj \
@@ -111,7 +114,8 @@ OBJECTS       = release\main.obj \
 		release\moc_readsensorsdialog.obj \
 		release\moc_manager.obj \
 		release\moc_imageproce.obj \
-		release\moc_findpicfile.obj
+		release\moc_findpicfile.obj \
+		release\moc_autodialog.obj
 
 DIST          =  mainwindow.h \
 		fins.h \
@@ -137,7 +141,8 @@ DIST          =  mainwindow.h \
 		readsensorsdialog.h \
 		manager.h \
 		imageproce.h \
-		findpicfile.h main.cpp \
+		findpicfile.h \
+		autodialog.h main.cpp \
 		mainwindow.cpp \
 		fins.cpp \
 		ifinscommand.cpp \
@@ -160,7 +165,8 @@ DIST          =  mainwindow.h \
 		readsensorsdialog.cpp \
 		manager.cpp \
 		imageproce.cpp \
-		findpicfile.cpp
+		findpicfile.cpp \
+		autodialog.cpp
 QMAKE_TARGET  = PlcUDP
 DESTDIR        = release\ #avoid trailing-slash linebreak
 TARGET         = PlcUDP.exe
@@ -215,7 +221,7 @@ DESTDIR_TARGET = release\PlcUDP.exe
 first: all
 all: Makefile.Release  $(DESTDIR_TARGET)
 
-$(DESTDIR_TARGET): F:\lab\HighSpeedRail\PlcUDP\PlcUDP\Depends\x64\vs2013shared\MVSDKmd.lib F:\lab\HighSpeedRail\PlcUDP\PlcUDP\Depends\x64\vs2013shared\ImageConvert.lib ui_mainwindow.h ui_cammerwidget.h ui_setcamerasprtwidget.h ui_parametersetting.h ui_manualmodedialog.h ui_readsensorsdialog.h ui_findpicfile.h $(OBJECTS) release\PlcUDP_resource.res
+$(DESTDIR_TARGET): F:\lab\HighSpeedRail\PlcUDP\PlcUDP\Depends\x64\vs2013shared\MVSDKmd.lib F:\lab\HighSpeedRail\PlcUDP\PlcUDP\Depends\x64\vs2013shared\ImageConvert.lib ui_mainwindow.h ui_cammerwidget.h ui_setcamerasprtwidget.h ui_parametersetting.h ui_manualmodedialog.h ui_readsensorsdialog.h ui_findpicfile.h ui_autodialog.h $(OBJECTS) release\PlcUDP_resource.res
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
 $(OBJECTS) $(LIBS)
 <<
@@ -232,7 +238,7 @@ dist:
 	$(ZIP) PlcUDP.zip $(SOURCES) $(DIST) PlcUDP.pro E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\spec_pre.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\common\angle.conf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\common\msvc-base.conf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\common\msvc-desktop.conf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\qconfig.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dcore.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dcore_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dextras.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dextras_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dinput.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dinput_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dlogic.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dlogic_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquick.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquick_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickextras.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickextras_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickinput.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickinput_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickrender.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickrender_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3drender.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_3drender_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_axbase.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_axbase_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_axcontainer.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_axcontainer_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_axserver.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_axserver_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_bluetooth.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_bluetooth_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_bootstrap_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_charts.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_charts_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_clucene_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_concurrent.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_concurrent_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_core.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_core_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_datavisualization.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_datavisualization_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_dbus.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_dbus_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_designer.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_designer_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_designercomponents_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_gamepad.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_gamepad_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_gui.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_gui_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_help.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_help_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_location.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_location_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimedia.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimedia_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimediawidgets.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_network.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_network_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_nfc.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_nfc_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_opengl.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_opengl_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_openglextensions.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_openglextensions_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_packetprotocol_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_platformsupport_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_positioning.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_positioning_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_printsupport.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_printsupport_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_purchasing.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_purchasing_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_qml.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_qml_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmldebug_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmldevtools_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmltest.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmltest_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_quick.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_quick_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickcontrols2.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickparticles_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickwidgets.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickwidgets_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_script.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_script_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_scripttools.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_scripttools_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_scxml.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_scxml_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_sensors.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_sensors_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_serialbus.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_serialbus_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_serialport.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_serialport_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_sql.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_sql_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_svg.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_svg_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_testlib.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_testlib_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_uiplugin.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_uitools.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_uitools_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webchannel.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webchannel_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webengine.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webengine_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginecore.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginecore_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginecoreheaders_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginewidgets.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_websockets.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_websockets_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webview.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_webview_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_widgets.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_widgets_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_winextras.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_winextras_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_xml.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_xml_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_xmlpatterns.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\modules\qt_lib_zlib_private.pri E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\qt_functions.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\qt_config.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\win32\qt_config.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\win32-msvc2015\qmake.conf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\spec_post.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\exclusive_builds.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\toolchain.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\default_pre.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\win32\default_pre.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\resolve_config.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\exclusive_builds_post.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\default_post.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\build_pass.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\win32\rtti.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\precompile_header.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\warn_on.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\qt.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\resources.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\moc.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\win32\opengl.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\uic.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\file_copies.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\win32\windows.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\testcase_targets.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\exceptions.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\yacc.prf E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\mkspecs\features\lex.prf PlcUDP.pro motor.qrc E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\lib\qtmain.prl E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\lib\Qt5DataVisualization.prl E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\lib\Qt5Widgets.prl E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\lib\Qt5Gui.prl E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\lib\Qt5Network.prl E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\lib\Qt5Core.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\fins.obj release\ifinscommand.obj release\udpfinscommand.obj release\abstractmode.obj release\motor.obj release\motorunit.obj release\manualmode.obj release\automaticmode.obj release\mode.obj release\cammerwidget.obj release\setcamerasprtwidget.obj release\cameras.obj release\onecamera.obj release\parametersetting.obj release\manualmodedialog.obj release\sensordata.obj release\cameradata.obj release\sensorunit.obj release\readsensorsdialog.obj release\manager.obj release\imageproce.obj release\findpicfile.obj release\qrc_motor.obj release\moc_mainwindow.obj release\moc_cammerwidget.obj release\moc_setcamerasprtwidget.obj release\moc_cameras.obj release\moc_parametersetting.obj release\moc_manualmodedialog.obj release\moc_readsensorsdialog.obj release\moc_manager.obj release\moc_imageproce.obj release\moc_findpicfile.obj
+	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\fins.obj release\ifinscommand.obj release\udpfinscommand.obj release\abstractmode.obj release\motor.obj release\motorunit.obj release\manualmode.obj release\automaticmode.obj release\mode.obj release\cammerwidget.obj release\setcamerasprtwidget.obj release\cameras.obj release\onecamera.obj release\parametersetting.obj release\manualmodedialog.obj release\sensordata.obj release\cameradata.obj release\sensorunit.obj release\readsensorsdialog.obj release\manager.obj release\imageproce.obj release\findpicfile.obj release\autodialog.obj release\qrc_motor.obj release\moc_mainwindow.obj release\moc_cammerwidget.obj release\moc_setcamerasprtwidget.obj release\moc_cameras.obj release\moc_parametersetting.obj release\moc_manualmodedialog.obj release\moc_readsensorsdialog.obj release\moc_manager.obj release\moc_imageproce.obj release\moc_findpicfile.obj release\moc_autodialog.obj
 	-$(DEL_FILE) release\PlcUDP.exp
 	-$(DEL_FILE) release\PlcUDP_resource.res
 
@@ -271,9 +277,9 @@ release\qrc_motor.cpp: motor.qrc \
 		resource\right_honver.png
 	E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\rcc.exe -name motor motor.qrc -o release\qrc_motor.cpp
 
-compiler_moc_header_make_all: release\moc_mainwindow.cpp release\moc_cammerwidget.cpp release\moc_setcamerasprtwidget.cpp release\moc_cameras.cpp release\moc_parametersetting.cpp release\moc_manualmodedialog.cpp release\moc_readsensorsdialog.cpp release\moc_manager.cpp release\moc_imageproce.cpp release\moc_findpicfile.cpp
+compiler_moc_header_make_all: release\moc_mainwindow.cpp release\moc_cammerwidget.cpp release\moc_setcamerasprtwidget.cpp release\moc_cameras.cpp release\moc_parametersetting.cpp release\moc_manualmodedialog.cpp release\moc_readsensorsdialog.cpp release\moc_manager.cpp release\moc_imageproce.cpp release\moc_findpicfile.cpp release\moc_autodialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) release\moc_mainwindow.cpp release\moc_cammerwidget.cpp release\moc_setcamerasprtwidget.cpp release\moc_cameras.cpp release\moc_parametersetting.cpp release\moc_manualmodedialog.cpp release\moc_readsensorsdialog.cpp release\moc_manager.cpp release\moc_imageproce.cpp release\moc_findpicfile.cpp
+	-$(DEL_FILE) release\moc_mainwindow.cpp release\moc_cammerwidget.cpp release\moc_setcamerasprtwidget.cpp release\moc_cameras.cpp release\moc_parametersetting.cpp release\moc_manualmodedialog.cpp release\moc_readsensorsdialog.cpp release\moc_manager.cpp release\moc_imageproce.cpp release\moc_findpicfile.cpp release\moc_autodialog.cpp
 release\moc_mainwindow.cpp: E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\QMainWindow \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qmainwindow.h \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qwidget.h \
@@ -473,6 +479,7 @@ release\moc_mainwindow.cpp: E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWid
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qdialog.h \
 		manager.h \
 		manualmodedialog.h \
+		autodialog.h \
 		sensorunit.h \
 		sensordata.h \
 		cameradata.h \
@@ -2162,11 +2169,113 @@ release\moc_findpicfile.cpp: E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWi
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\moc.exe
 	E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/mkspecs/win32-msvc2015 -IF:/lab/HighSpeedRail/PlcUDP/PlcUDP -IF:/lab/HighSpeedRail/PlcUDP/PlcUDP/Include -IE:/software/opencv/opencv410/build_64/install/include -IE:/software/opencv/opencv410/build_64/install/x64/vc14 -IF:/lab/HighSpeedRail/PlcUDP/PlcUDP/Depends/x64/vs2013shared -IF:/lab/HighSpeedRail/PlcUDP/PlcUDP/Depends/x64/vs2013shared -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtDataVisualization -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtWidgets -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtGui -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtANGLE -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtNetwork -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtCore findpicfile.h -o release\moc_findpicfile.cpp
 
+release\moc_autodialog.cpp: E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\QDialog \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qdialog.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qwidget.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qwindowdefs.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qglobal.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qconfig.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qfeatures.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qsystemdetection.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qprocessordetection.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qcompilerdetection.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qtypeinfo.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qtypetraits.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qisenum.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qsysinfo.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qlogging.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qflags.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qatomic.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qbasicatomic.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qgenericatomic.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qatomic_cxx11.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qatomic_msvc.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qglobalstatic.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qmutex.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qnumeric.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qversiontagging.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qnamespace.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qwindowdefs_win.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qobject.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qstring.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qchar.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qbytearray.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qrefcount.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qarraydata.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qstringbuilder.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qlist.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qalgorithms.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qiterator.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qhashfunctions.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qpair.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qbytearraylist.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qstringlist.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qregexp.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qstringmatcher.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qcoreevent.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qscopedpointer.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qmetatype.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qmargins.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpaintdevice.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qrect.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qsize.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qpoint.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpalette.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qcolor.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qrgb.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qrgba64.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qbrush.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qvector.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qmatrix.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpolygon.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qregion.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qdatastream.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qiodevice.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qline.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qtransform.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpainterpath.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qimage.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpixelformat.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpixmap.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qsharedpointer.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qshareddata.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qhash.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qfont.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qfontmetrics.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qfontinfo.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qsizepolicy.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qcursor.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qkeysequence.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qevent.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qvariant.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qmap.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qdebug.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qtextstream.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qlocale.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qset.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qcontiguouscache.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qurl.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qurlquery.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qfile.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qfiledevice.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qvector2d.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qtouchdevice.h \
+		autodialog.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\moc.exe
+	E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/mkspecs/win32-msvc2015 -IF:/lab/HighSpeedRail/PlcUDP/PlcUDP -IF:/lab/HighSpeedRail/PlcUDP/PlcUDP/Include -IE:/software/opencv/opencv410/build_64/install/include -IE:/software/opencv/opencv410/build_64/install/x64/vc14 -IF:/lab/HighSpeedRail/PlcUDP/PlcUDP/Depends/x64/vs2013shared -IF:/lab/HighSpeedRail/PlcUDP/PlcUDP/Depends/x64/vs2013shared -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtDataVisualization -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtWidgets -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtGui -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtANGLE -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtNetwork -IE:/software/Qt/Qt5.7.1/5.7/msvc2015_64/include/QtCore autodialog.h -o release\moc_autodialog.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_cammerwidget.h ui_setcamerasprtwidget.h ui_parametersetting.h ui_manualmodedialog.h ui_readsensorsdialog.h ui_findpicfile.h
+compiler_uic_make_all: ui_mainwindow.h ui_cammerwidget.h ui_setcamerasprtwidget.h ui_parametersetting.h ui_manualmodedialog.h ui_readsensorsdialog.h ui_findpicfile.h ui_autodialog.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_cammerwidget.h ui_setcamerasprtwidget.h ui_parametersetting.h ui_manualmodedialog.h ui_readsensorsdialog.h ui_findpicfile.h
+	-$(DEL_FILE) ui_mainwindow.h ui_cammerwidget.h ui_setcamerasprtwidget.h ui_parametersetting.h ui_manualmodedialog.h ui_readsensorsdialog.h ui_findpicfile.h ui_autodialog.h
 ui_mainwindow.h: mainwindow.ui \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\uic.exe
 	E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\uic.exe mainwindow.ui -o ui_mainwindow.h
@@ -2194,6 +2303,10 @@ ui_readsensorsdialog.h: readsensorsdialog.ui \
 ui_findpicfile.h: findpicfile.ui \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\uic.exe
 	E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\uic.exe findpicfile.ui -o ui_findpicfile.h
+
+ui_autodialog.h: autodialog.ui \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\uic.exe
+	E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\bin\uic.exe autodialog.ui -o ui_autodialog.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -2407,6 +2520,7 @@ release\main.obj: main.cpp mainwindow.h \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qdialog.h \
 		manager.h \
 		manualmodedialog.h \
+		autodialog.h \
 		sensorunit.h \
 		sensordata.h \
 		cameradata.h \
@@ -2999,6 +3113,7 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qdialog.h \
 		manager.h \
 		manualmodedialog.h \
+		autodialog.h \
 		sensorunit.h \
 		sensordata.h \
 		cameradata.h \
@@ -5783,7 +5898,66 @@ release\manager.obj: manager.cpp manager.h \
 		omronpst.h \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\QVector3D \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qvector3d.h \
-		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\QVector
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\QVector \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\QTest \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtest.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtest_global.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtestcase.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qmetaobject.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qtemporarydir.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qdir.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qfileinfo.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qfile.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qfiledevice.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\QScopedPointer \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtestdata.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qbenchmark.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qbenchmarkmetric.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qdatetime.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qurl.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qurlquery.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtestsystem.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qcoreapplication.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qeventloop.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qelapsedtimer.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\QWindow \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qwindow.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\QEvent \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\QMargins \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\QRect \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qsurface.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qsurfaceformat.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qicon.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpixmap.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qcursor.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\QWidget \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qwidget.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpalette.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qbrush.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qfont.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qfontmetrics.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qfontinfo.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qsizepolicy.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qkeysequence.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qevent.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qvector2d.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qtouchdevice.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtest_widgets.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtest_gui.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtestassert.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtestevent.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtestkeyboard.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtestspontaneevent.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qpointer.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qguiapplication.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qinputmethod.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qapplication.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qdesktopwidget.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtestmouse.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\QDebug \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtTest\qtesttouch.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\QSizePolicy \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\QMetaEnum
 
 release\imageproce.obj: imageproce.cpp imageproce.h \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\QObject \
@@ -6133,6 +6307,107 @@ release\findpicfile.obj: findpicfile.cpp findpicfile.h \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qdir.h \
 		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qfileinfo.h
 
+release\autodialog.obj: autodialog.cpp autodialog.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\QDialog \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qdialog.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qwidget.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qwindowdefs.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qglobal.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qconfig.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qfeatures.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qsystemdetection.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qprocessordetection.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qcompilerdetection.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qtypeinfo.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qtypetraits.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qisenum.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qsysinfo.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qlogging.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qflags.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qatomic.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qbasicatomic.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qgenericatomic.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qatomic_cxx11.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qatomic_msvc.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qglobalstatic.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qmutex.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qnumeric.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qversiontagging.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qnamespace.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qwindowdefs_win.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qobject.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qstring.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qchar.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qbytearray.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qrefcount.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qarraydata.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qstringbuilder.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qlist.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qalgorithms.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qiterator.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qhashfunctions.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qpair.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qbytearraylist.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qstringlist.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qregexp.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qstringmatcher.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qcoreevent.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qscopedpointer.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qmetatype.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qmargins.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpaintdevice.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qrect.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qsize.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qpoint.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpalette.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qcolor.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qrgb.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qrgba64.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qbrush.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qvector.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qmatrix.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpolygon.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qregion.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qdatastream.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qiodevice.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qline.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qtransform.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpainterpath.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qimage.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpixelformat.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qpixmap.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qsharedpointer.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qshareddata.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qhash.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qfont.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qfontmetrics.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qfontinfo.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtWidgets\qsizepolicy.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qcursor.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qkeysequence.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qevent.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qvariant.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qmap.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qdebug.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qtextstream.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qlocale.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qset.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qcontiguouscache.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qurl.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qurlquery.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qfile.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtCore\qfiledevice.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qvector2d.h \
+		E:\software\Qt\Qt5.7.1\5.7\msvc2015_64\include\QtGui\qtouchdevice.h \
+		ui_autodialog.h
+
 release\qrc_motor.obj: release\qrc_motor.cpp 
 
 release\moc_mainwindow.obj: release\moc_mainwindow.cpp 
@@ -6154,6 +6429,8 @@ release\moc_manager.obj: release\moc_manager.cpp
 release\moc_imageproce.obj: release\moc_imageproce.cpp 
 
 release\moc_findpicfile.obj: release\moc_findpicfile.cpp 
+
+release\moc_autodialog.obj: release\moc_autodialog.cpp 
 
 ####### Install
 

@@ -11,22 +11,22 @@ namespace omron{
     #define PLCNX1P2_PORT "9600"
     #define HOSTPC_IP "192.168.250.5"
     #define HOSTPC_PORT "6666"
-    #define SENSORFILEDIRECTORY "D:/HSRSL/SensorData/"
-    #define SENSORFILE_1 "D:/HSRSL/SensorData/SensorData_1.txt"
-    #define SENSORFILE_2 "D:/HSRSL/SensorData/SensorData_2.txt"
-    #define SENSORFILE_3 "D:/HSRSL/SensorData/SensorData_3.txt"
-    #define SENSORFILE_4 "D:/HSRSL/SensorData/SensorData_4.txt"
-    #define LIMITINFORMATION1 "D:/HSRSL/LimitInformation/LimitInf1.txt"
-    #define LIMITINFORMATION2 "D:/HSRSL/LimitInformation/LimitInf2.txt"
-    #define POINTCLOUDSAVEDIR "D:/HSRSL/PointCloudData/"
-    #define CameraConfiguration1_1 "D:/HSRSL/CameraConfiguration/CameraConfiguration1_1.mvcfg"
-    #define CameraConfiguration1_2 "D:/HSRSL/CameraConfiguration/CameraConfiguration1_2.mvcfg"
-    #define CameraConfiguration2_1 "D:/HSRSL/CameraConfiguration/CameraConfiguration2_1.mvcfg"
-    #define CameraConfiguration2_2 "D:/HSRSL/CameraConfiguration/CameraConfiguration2_2.mvcfg"
-    #define CameraConfiguration3_1 "D:/HSRSL/CameraConfiguration/CameraConfiguration3_1.mvcfg"
-    #define CameraConfiguration3_2 "D:/HSRSL/CameraConfiguration/CameraConfiguration3_2.mvcfg"
-    #define CameraConfiguration4_1 "D:/HSRSL/CameraConfiguration/CameraConfiguration4_1.mvcfg"
-    #define CameraConfiguration4_2 "D:/HSRSL/CameraConfiguration/CameraConfiguration4_2.mvcfg"
+    #define SENSORFILEDIRECTORY "F:/HSRSL/SensorData/"
+    #define SENSORFILE_1 "F:/HSRSL/SensorData/SensorData_1.txt"
+    #define SENSORFILE_2 "F:/HSRSL/SensorData/SensorData_2.txt"
+    #define SENSORFILE_3 "F:/HSRSL/SensorData/SensorData_3.txt"
+    #define SENSORFILE_4 "F:/HSRSL/SensorData/SensorData_4.txt"
+    #define LIMITINFORMATION1 "F:/HSRSL/LimitInformation/LimitInf1.txt"
+    #define LIMITINFORMATION2 "F:/HSRSL/LimitInformation/LimitInf2.txt"
+    #define POINTCLOUDSAVEDIR "F:/HSRSL/PointCloudData/"
+    #define CameraConfiguration1_1 "F:/HSRSL/CameraConfiguration/CameraConfiguration1_1.mvcfg"
+    #define CameraConfiguration1_2 "F:/HSRSL/CameraConfiguration/CameraConfiguration1_2.mvcfg"
+    #define CameraConfiguration2_1 "F:/HSRSL/CameraConfiguration/CameraConfiguration2_1.mvcfg"
+    #define CameraConfiguration2_2 "F:/HSRSL/CameraConfiguration/CameraConfiguration2_2.mvcfg"
+    #define CameraConfiguration3_1 "F:/HSRSL/CameraConfiguration/CameraConfiguration3_1.mvcfg"
+    #define CameraConfiguration3_2 "F:/HSRSL/CameraConfiguration/CameraConfiguration3_2.mvcfg"
+    #define CameraConfiguration4_1 "F:/HSRSL/CameraConfiguration/CameraConfiguration4_1.mvcfg"
+    #define CameraConfiguration4_2 "F:/HSRSL/CameraConfiguration/CameraConfiguration4_2.mvcfg"
 
     #define MOTORLABELLEN 7
     #define MANUALCONTINUOUS "31000001000101"//手动连续模式标志位
@@ -145,7 +145,14 @@ struct CommandPacket{
     int dis;//步进距离信息
     int vec;//速度信息
 };
-
+//自动控制指令包
+struct autoCmdPage{
+    double start_pos;
+    double end_pos;
+    double step;
+    double speed;
+    int moter;
+};
 //**保存限界信息***********//
 
 struct LimitInf{

@@ -737,7 +737,7 @@ void ImageProce::receiveFilepathFromManagerToImageProcess(QString ImagePath_Ligh
     //cvtColor(image_absdiff, image_gray, CV_BGR2GRAY);
 
     Mat  image_Threshold; //二值化图像
-    threshold(image_absdiff, image_Threshold, m_threshold, 255, CV_THRESH_TOZERO);//200是根据采取到的图片，进行了二值化，得到相对比较好的阈值
+    threshold(image_absdiff, image_Threshold, m_threshold, 255, THRESH_TOZERO);//200是根据采取到的图片，进行了二值化，得到相对比较好的阈值
 
     Mat  image_Filter; //滤波图像
     GaussianBlur(image_Threshold,image_Filter,Size(5,5),0,0);//高斯滤波

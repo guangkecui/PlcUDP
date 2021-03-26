@@ -14,6 +14,7 @@
 #include "parametersetting.h"
 #include "manager.h"
 #include "manualmodedialog.h"
+#include "autodialog.h"
 #include "sensorunit.h"
 #include "readsensorsdialog.h"
 #include <QtDataVisualization/QtDataVisualization>
@@ -122,6 +123,9 @@ private slots:
     void receiveMessageFromImageProcess(QString msg);
     //接收从图片选择路径的窗口  的 路径
     void receivePathdFromPicfileDiaglog(QString path);
+    //接收从自动控制窗口发来的控制指令
+    void receiveCmdFromAutoDiaglog(int input_motor,
+                                   double input_step);
     //手动控制界面关闭槽函数
     void manualDialogDistroyed();
     //自动控制关闭槽函数
@@ -205,6 +209,7 @@ private:
     QThread managerThread;//指令管理器的线程
     Manager* m_manager;//指令管理器
     manualmodeDialog* manualDialog;//手动控制器界面
+    autoDialog* autoDialog_m;//自动控制界面
     FindPicFile* picFileDialog;//选择图片保存路径
     sensorunit* m_SensorUnit;//四个传感器的信息
     ReadSensorsDialog* ReadSensors;//传感器读入文件界面

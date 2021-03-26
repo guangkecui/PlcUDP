@@ -4,7 +4,7 @@
 #  include <windows.h>
 # endif
 
-IDI_ICON1	ICON	DISCARDABLE	"D:\\plcUDP\\PlcUDP\\resource\\myico.ico"
+IDI_ICON1	ICON	DISCARDABLE	"F:\\lab\\HighSpeedRail\\PlcUDP\\PlcUDP\\resource\\myico.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 0,0,0,0

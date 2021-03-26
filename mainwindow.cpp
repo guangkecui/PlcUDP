@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     camerasPLC = new omron::Cameras();
     ParSet = new ParameterSetting(this);
     manualDialog = nullptr;
+    autoDialog_m = nullptr;
     picFileDialog = nullptr;
     m_SensorUnit = new sensorunit();
     if(m_SensorUnit->Sensor_1->ReadData(SENSORFILE_1,false))
@@ -644,6 +645,25 @@ void MainWindow::receivePathdFromPicfileDiaglog(QString path)
     DisplayText(QString("Picture path selected :%1").arg(path));
 }
 
+
+/**********************************************
+  函数名称：receiveCmdFromAutoDiaglog
+  输入参数：input_motor:电机号；input_start：起始位置；input_end：结束位置；input_step：步进值；
+  输出参数：
+  函数功能：
+**********************************************/
+void MainWindow::receiveCmdFromAutoDiaglog(int input_motor,double input_step)
+{
+    int sz = m_manager->MotorPolled_IsWorking.size();
+    for(int i=0;i<sz;++i){
+        if(m_manager->MotorPolled_IsWorking[i]==input_motor){
+            DisplayText(QString("电机正运行在自动模式."));
+            return;
+        }
+    }
+    m_manager->MotorPolled_IsWorking.push_back(input_motor);
+}
+
 /**********************************************
   函数名称：manualDialogDistroyed
   输入参数：
@@ -767,7 +787,14 @@ void MainWindow::on_ModeStart_clicked()
     sendCmdToManger(ORIGINLINK_4,false);
     switch (m_type) {
     case ModeType::Automatic:
+        if(autoDialog_m!=nullptr){
+            delete autoDialog_m;
+            autoDialog_m = nullptr;
+        }
+        autoDialog_m = new autoDialog(this);
+        autoDialog_m->show();
         //emit ManagerMotorPowerOn();//电机上电
+        connect(autoDialog_m,SIGNAL(sendAutoCmdToMainwindow(int,double)),this,SLOT(receiveCmdFromAutoDiaglog(int,double)));
         if(!m_manager->isWorking()){
             m_manager->setMode(ModeType::Automatic);
             m_manager->addCommand(modePLC->getAutoPrt());
@@ -805,10 +832,6 @@ void MainWindow::on_ModeStart_clicked()
     default:
         break;
     }
-//    emit cmdToOrigin(1);//将各电机回原点
-//    emit cmdToOrigin(2);
-//    emit cmdToOrigin(3);
-//    emit cmdToOrigin(4);
 }
 
 /**********************************************

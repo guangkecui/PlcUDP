@@ -194,30 +194,34 @@ void Manager::setManualWorkDist(double dis)
 **********************************************/
 void Manager::AutoWork()
 {
-    powerOnMotors(5);//电机全部上电
-    MotorPolled_IsWorking.clear();
-    MotorPolled_EndWorking.clear();//初始化清零
-
-    QThread::msleep(500);
-    for(int i=0;i<MotorPolled_Start.size();++i){
-        if(m_fins->MemoryAreaWrite(m_fins->hexstrToByteArray(MotorPolled_Start[i]))){//先将自动模式开始标志位发送过去
-            emit message(QString("指令管理器：%1号电机自动模式开始成功\n").arg(i+1));
-            MotorPolled_IsWorking.push_back(i);
+    //powerOnMotors(5);//电机全部上电
+    //MotorPolled_IsWorking.clear();
+    //MotorPolled_EndWorking.clear();//初始化清零*/
+    while(!MotorPolled_StartWorking.empty()){
+        int motor = MotorPolled_StartWorking.back();
+        MotorPolled_StartWorking.pop_back();
+        powerOnMotors(motor);
+        if(m_fins->MemoryAreaWrite(m_fins->hexstrToByteArray(MotorPolled_Start[motor-1]))){//先将自动模式开始标志位发送过去
+            emit message(QString("指令管理器：%1号电机自动模式开始成功\n").arg(motor));
+            MotorPolled_IsWorking.push_back(motor);
         }
         else{
-            emit message(QString("指令管理器：%1号电机自动模式开始失败\n").arg(i+1));
-            MotorPolled_EndWorking.push_back(i);
+            powerOffMotors(motor);
+            emit message(QString("指令管理器：%1号电机自动模式开始失败\n").arg(motor));
+            MotorPolled_EndWorking.push_back(motor);
         }
     }
-    //*如果没有电机初始化成功*/
-    if(MotorPolled_IsWorking.size()==0){
-        emit message("指令管理器：四个电机自动模式初始化全部失败\n");
-        concelWorking();
-        QThread::msleep(500);
-        powerOffMotors(5);//电机断电
-        emit AutoModeEnd();//给mainwindow界面发送信号，自动模式结束
-        return;
-    }
+    //QThread::msleep(500);
+
+//    //*如果没有电机初始化成功*/
+//    if(MotorPolled_IsWorking.size()==0){
+//        emit message("指令管理器：四个电机自动模式初始化全部失败\n");
+//        concelWorking();
+//        QThread::msleep(500);
+//        powerOffMotors(5);//电机断电
+//        emit AutoModeEnd();//给mainwindow界面发送信号，自动模式结束
+//        return;
+//    }
 }
 
 
@@ -432,15 +436,15 @@ void Manager::setMotorToPosition(int motor, double position)
     default:
         break;
     }
-    if(curWorkingMode!=ManualStepping){
-        //先给步进连续模式置0
-        QByteArray ManualSteppingZero = m_fins->hexstrToByteArray(MANUALSTEPPING);
-        ManualSteppingZero[ManualSteppingZero.size()-1] = (uint8_t)0x00;
-        m_fins->MemoryAreaWrite(ManualSteppingZero);
-        //给连续模式置1
-        QByteArray ManualContinuousOne = m_fins->hexstrToByteArray(MANUALCONTINUOUS);
-        m_fins->MemoryAreaWrite(ManualContinuousOne);
-    }
+//    if(curWorkingMode!=ManualStepping){
+//        //先给步进连续模式置0
+//        QByteArray ManualSteppingZero = m_fins->hexstrToByteArray(MANUALSTEPPING);
+//        ManualSteppingZero[ManualSteppingZero.size()-1] = (uint8_t)0x00;
+//        m_fins->MemoryAreaWrite(ManualSteppingZero);
+//        //给连续模式置1
+//        QByteArray ManualContinuousOne = m_fins->hexstrToByteArray(MANUALCONTINUOUS);
+//        m_fins->MemoryAreaWrite(ManualContinuousOne);
+//    }
     concelWorking();
 }
 
@@ -1130,6 +1134,7 @@ void Manager::timerPollDeal()
 {
     //判断是否还有需要轮询的电机
     if(MotorPolled_IsWorking.size()==0){
+        MotorPolled_EndWorking.clear();
         concelWorking();
         powerOffMotors(5);
         emit AutoModeEnd();
@@ -1144,21 +1149,30 @@ void Manager::timerPollDeal()
     //若没有，则判断是否有电机结束
     //轮询是否有电机结束，若有则将结束的电机号从数组中清除，更新数组*/
     for(int i =0;i<MotorPolled_IsWorking.size();++i){
-        int motor = MotorPolled_IsWorking[i];//记录电机号
+        int motor = MotorPolled_IsWorking[i]-1;//记录电机号
         if(m_fins->MemoryAreaRead(m_fins->hexstrToByteArray(MotorPolled_Inplace[motor]))){
             QThread::msleep(1000);
                 QByteArray data= m_fins->getRespFinsData();
                 m_fins->clearRespFinsData();//把数据清空
                 if( data[0]==(char)0x01){//电机已到位
                     getPosition((CAMERALABEL)(2*motor+1));
-                    QString imageLightOFF = m_cameras->getImageOfCamera((CAMERALABEL)(2*MotorPolled_IsWorking[i]+1),false);
-                    QString imageLightON = m_cameras->getImageOfCamera((CAMERALABEL)(2*MotorPolled_IsWorking[i]+1),true);
-                    if(imageLightOFF==""||imageLightON==""){ //对相应的相机进行拍照
-                        emit message(QString("指令管理器：%1号相机拍照失败\n").arg(motor+1));
+                    QString imageLightOFF1 = m_cameras->getImageOfCamera((CAMERALABEL)(2*MotorPolled_IsWorking[i]-1),false);
+                    QString imageLightOFF2 = m_cameras->getImageOfCamera((CAMERALABEL)(2*MotorPolled_IsWorking[i]),false);
+                    QString imageLightON1 = m_cameras->getImageOfCamera((CAMERALABEL)(2*MotorPolled_IsWorking[i]-1),true);
+                    QString imageLightON2 = m_cameras->getImageOfCamera((CAMERALABEL)(2*MotorPolled_IsWorking[i]),true);
+                    if(imageLightOFF1==""||imageLightON1==""){ //对相应的相机进行拍照
+                        emit message(QString("指令管理器：%1号相机拍照失败\n").arg(2*MotorPolled_IsWorking[i]-1));
                     }
                     else{
-                        emit message(QString("指令管理器：%1号相机拍照成功\n").arg(motor+1));
-                        emit singleImageProcess(imageLightOFF,imageLightON);
+                        emit message(QString("指令管理器：%1号相机拍照成功\n").arg(2*MotorPolled_IsWorking[i]-1));
+                        emit singleImageProcess(imageLightOFF1,imageLightON1);
+                    }
+                    if(imageLightOFF2==""||imageLightON2==""){ //对相应的相机进行拍照
+                        emit message(QString("指令管理器：%1号相机拍照失败\n").arg(2*MotorPolled_IsWorking[i]));
+                    }
+                    else{
+                        emit message(QString("指令管理器：%1号相机拍照成功\n").arg(2*MotorPolled_IsWorking[i]));
+                        emit singleImageProcess(imageLightOFF2,imageLightON2);
                     }
                     //对到位标志位置为0
                     QByteArray setPosition = m_fins->hexstrToByteArray(MotorPolled_Inplace[motor]);
